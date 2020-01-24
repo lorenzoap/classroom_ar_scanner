@@ -1,12 +1,12 @@
 Schema di utilizzo del prodotto
 
 1. Unente medio entra dalla porta di entrata della scuola.
-2. All'inizio del piano sar‡ presente un codice QR per entrare nel sito web (uguale per tutti e 4)
-3. Sul sito ci sar‡ un menu principale che spiega all'utente lo scopo del progetto e come funziona
+2. All'inizio del piano sar√† presente un codice QR per entrare nel sito web (uguale per tutti e 4)
+3. Sul sito ci sar√† un menu principale che spiega all'utente lo scopo del progetto e come funziona
 4. Oltre alla descrizione saranno presenti due opzioni:
 
- - Cerca aula: mostrer‡ il percorso di una determitata aula oppure mostra le varie aule della zona
- - Scannerizza aula: Una volta scannerizzato il codice dell'aula mostrer‡ il programma delle lezioni presenti quel
+ - Cerca aula: mostrer√† il percorso di una determitata aula oppure mostra le varie aule della zona
+ - Scannerizza aula: Una volta scannerizzato il codice dell'aula mostrer√† il programma delle lezioni presenti quel
    quel giorno nell'aula con le classi e i docenti.
 
 Note: decidere il tipo di codice QR per le aule. Decidere se utilizzare il numero dell'aula come pattern oppure 
@@ -19,7 +19,7 @@ manualmente.
 - Compiti per la prossima volta
 
     - informarsi su che linguaggio utilizzare per realizzarlo: Python o JS? Controllare librerie esistenti
-    - informarsi sul funzionamento del QR e scegliere cosa utilizzare per il prodotto in base alla comodit‡
+    - informarsi sul funzionamento del QR e scegliere cosa utilizzare per il prodotto in base alla comodit√†
     - definire i compiti all'interno del gruppo e svolgere analisi
 
 
