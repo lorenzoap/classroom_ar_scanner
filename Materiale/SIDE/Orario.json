@@ -1,0 +1,119 @@
+{
+  "id": "ad1eaf0c-fe66-4992-81ba-0776f8e13c07",
+  "version": "2.0",
+  "name": "Orario",
+  "url": "https://www.cpttrevano.ti.ch",
+  "tests": [{
+    "id": "c09fb0fb-598d-417b-86cf-e4fa8094447c",
+    "name": "I4AA - orario",
+    "commands": [{
+      "id": "36d1cfb3-cc0b-43e8-baf5-d8bef7840b2d",
+      "comment": "",
+      "command": "open",
+      "target": "/orario/invite?invite=true",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a880b385-ce84-49d2-a0e3-37a662e0455b",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1384x794",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2f8ed0f4-9eff-4b00-a011-4e5492385f53",
+      "comment": "",
+      "command": "click",
+      "target": "id=GInterface.Instances[0].Instances[0]_Combo1",
+      "targets": [
+        ["id=GInterface.Instances[0].Instances[0]_Combo1", "id"],
+        ["css=#GInterface\\.Instances\\[0\\]\\.Instances\\[0\\]_Combo1", "css:finder"],
+        ["xpath=//div[@id='GInterface.Instances[0].Instances[0]_Combo1']", "xpath:attributes"],
+        ["xpath=//ul[@id='GInterface.Instances[0].Instances[0]_Wrapper']/li[2]/div", "xpath:idRelative"],
+        ["xpath=//li[2]/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "334f74af-2abe-4d6c-8a79-b232fb645a7e",
+      "comment": "",
+      "command": "click",
+      "target": "id=GInterface.Instances[1].Instances[1].bouton_Edit",
+      "targets": [
+        ["id=GInterface.Instances[1].Instances[1].bouton_Edit", "id"],
+        ["css=#GInterface\\.Instances\\[1\\]\\.Instances\\[1\\]\\.bouton_Edit", "css:finder"],
+        ["xpath=//input[@id='GInterface.Instances[1].Instances[1].bouton_Edit']", "xpath:attributes"],
+        ["xpath=//div[@id='GInterface.Instances[1].Instances[1].bouton_Zone']/table/tbody/tr/td/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "80148ef5-caed-4df1-be48-77c2b3c501f0",
+      "comment": "",
+      "command": "type",
+      "target": "id=GInterface.Instances[1].Instances[1].bouton_Edit",
+      "targets": [
+        ["id=GInterface.Instances[1].Instances[1].bouton_Edit", "id"],
+        ["css=#GInterface\\.Instances\\[1\\]\\.Instances\\[1\\]\\.bouton_Edit", "css:finder"],
+        ["xpath=//input[@id='GInterface.Instances[1].Instances[1].bouton_Edit']", "xpath:attributes"],
+        ["xpath=//div[@id='GInterface.Instances[1].Instances[1].bouton_Zone']/table/tbody/tr/td/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "SAM D1AA"
+    }, {
+      "id": "9b7d5210-e799-44e8-a8d1-f4303a1309b1",
+      "comment": "",
+      "command": "click",
+      "target": "css=#GInterface\\.Instances\\[1\\]\\.Instances\\[1\\]_0 > span",
+      "targets": [
+        ["css=#GInterface\\.Instances\\[1\\]\\.Instances\\[1\\]_0 > span", "css:finder"],
+        ["xpath=//div[@id='GInterface.Instances[1].Instances[1]_0']/span", "xpath:idRelative"],
+        ["xpath=//div/div/div/div/span", "xpath:position"],
+        ["xpath=//span[contains(.,'I4AA')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "6bd9e109-f180-4921-8cca-f39d963d3ddb",
+      "comment": "",
+      "command": "click",
+      "target": "id=GInterface.Instances[0].Instances[2].bouton_Bouton",
+      "targets": [
+        ["id=GInterface.Instances[0].Instances[2].bouton_Bouton", "id"],
+        ["css=#GInterface\\.Instances\\[0\\]\\.Instances\\[2\\]\\.bouton_Bouton", "css:finder"],
+        ["xpath=//td[@id='GInterface.Instances[0].Instances[2].bouton_Bouton']", "xpath:attributes"],
+        ["xpath=//div[@id='GInterface.Instances[0].Instances[2].bouton_Zone']/table/tbody/tr/td[2]", "xpath:idRelative"],
+        ["xpath=//td[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "4d80fa06-5f81-42f5-b2c6-36d83806da46",
+      "comment": "",
+      "command": "click",
+      "target": "id=GInterface.Instances[0].Instances[2]_1",
+      "targets": [
+        ["id=GInterface.Instances[0].Instances[2]_1", "id"],
+        ["css=#GInterface\\.Instances\\[0\\]\\.Instances\\[2\\]_1", "css:finder"],
+        ["xpath=//div[@id='GInterface.Instances[0].Instances[2]_1']", "xpath:attributes"],
+        ["xpath=//div[@id='GInterface.Instances[0].Instances[2]_ContenuScroll']/div[2]", "xpath:idRelative"],
+        ["xpath=//div[5]/div/div/table/tbody/tr/td/div/div[2]/div/div/div/div/div/div[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "d8f86387-7b66-4b09-91ef-e877699ad4af",
+      "comment": "",
+      "command": "close",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "d2829f1c-32a9-4649-8b08-a14dc9e8cfd8",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["c09fb0fb-598d-417b-86cf-e4fa8094447c"]
+  }],
+  "urls": ["https://www.cpttrevano.ti.ch/"],
+  "plugins": []
+}
