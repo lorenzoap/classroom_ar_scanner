@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<script src="aframe.min.js"></script>
+		<script src="aframe-ar.js"></script>
+	</head>
+	<body style="margin : 0px; overflow: hidden;">
+		<script type="text/javascript">
+			AFRAME.registerComponent("text_test", {
+				init: function()
+				{
+					this.el.setAttribute("value", "Hello, World!");
+				}
+			});
+
+			// AFRAME.registerComponent("markers_generator", {
+			// 	init: function()
+			// 	{
+			// 		console.log("script loaded");
+			// 		const scene = document.querySelector("#scene");
+			// 		const template = document.querySelector("#template");
+			//
+			// 		for(let i = 0; i < 5; ++i)
+			// 		{
+			// 			let new_element = template.cloneNode(true);
+			// 			new_element.children[0].setAttribute("color", "#999999");
+			// 			new_element.children[1].setAttribute("text", i);
+			// 			new_element.removeAttribute("id");
+			// 			// new_element.setAttribute("visible", "true");
+			// 			new_element.setAttribute("value", i.toString());
+			// 			scene.appendChild(new_element);
+			// 			console.log(new_element);
+			// 		}
+			//
+			// 		template.parentNode.removeChild(template);
+			// 		console.log("script finished");
+			// 	}
+			// });
+		</script>
+		<a-scene id="scene" embedded arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix;" markers_generator>
+			<a-marker type="barcode" value="0">
+				<a-box position="0.0 0.0 0.0" scale="2.0 0.1 1.0" color="#999999"></a-box>
+				<a-text position="0.0 0.25 -0.35" rotation="-90.0 0.0 0.0" scale="0.5 0.5 1.0" align="center" value="Aula 430" color="#000000"></a-text>
+				<a-text position="0.0 0.25 -0.15" rotation="-90.0 0.0 0.0" scale="0.5 0.5 1.0" align="center" value="Lezione attuale: Modulo 306" color="#000000"></a-text>
+				<a-text position="0.0 0.25 -0.05" rotation="-90.0 0.0 0.0" scale="0.5 0.5 1.0" align="center" value="Docente: Petrini Geo" color="#000000"></a-text>
+				<a-text position="0.0 0.25 0.05"  rotation="-90.0 0.0 0.0" scale="0.5 0.5 1.0" align="center" value="Orario: 08:20 - 11:35" color="#000000"></a-text>
+			</a-marker>
+			<a-entity camera></a-entity>
+		</a-scene>
+		<!-- <script type="text/javascript">
+			const element = document.getElementById("marker");
+			element.addEventListener("markerFound", (e) =>
+			{
+				window.alert("henlo");
+			});
+		</script> -->
+	</body>
+</html>
