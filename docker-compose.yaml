@@ -1,0 +1,30 @@
+version: "3"
+services:
+        cas_db:
+                environment:
+                        - MYSQL_DATABASE=classroom_timetables
+                        - MYSQL_ROOT_PASSWORD=Punk42h2AsaCbzs
+                image: mariadb:10.4.12-bionic
+                networks:
+                        - cas
+                restart: unless-stopped
+        cas_web:
+                build: ./WebServer/
+                depends_on:
+                        - cas_db
+                image: cas_web
+                networks:
+                        - cas
+                ports:
+                        - 80:5000
+                restart: unless-stopped
+        cas_fetch:
+                build: ./FetchServer/
+                depends_on:
+                        - cas_db
+                image: cas_fetch
+                networks:
+                        - cas
+                restart: unless-stopped
+networks:
+        cas:
