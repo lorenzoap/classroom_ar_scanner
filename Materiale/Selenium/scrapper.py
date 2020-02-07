@@ -1,42 +1,82 @@
+import re
 import site
+import json
 import time
-import getpass
 site.addsitedir('./PIL')
-from PIL import *
 site.addsitedir('./selenium')
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from selenium.webdriver.firefox.options import Options
+from pynput.keyboard import Key, Controller
+from bs4 import BeautifulSoup
 
 class Scrapper:
-    baseurl = "https://servicenow.adgr.net/navpage.do"
-    def __init__(self, user, password, url, s3_user, s3_password, s3_url):
-        self.user = user
-        self.password = password
+    baseurl = "https://www.cpttrevano.ti.ch/orario/invite?invite=true"
+    def __init__(self, url):
         self.url = url
-        self.browser = webdriver.PhantomJS()
+        self.browser = webdriver.Chrome()
      
-    def login_snow(self):
+    def cercaOrarioAule(self, ricerca):
         snow_logged = False
+        k = Controller()
         self.browser.get(self.baseurl)
-        username = str(self.user)
-        password = str(self.password)
-        self.loaded_check("gsft_main")
-        self.browser.switch_to.frame(self.browser.find_element_by_id("gsft_main"))
+        self.loaded_check("GInterface.Instances[0].Instances[0]_Combo1")
 
-        username_field = self.browser.find_element_by_id("user_name")
-        password_field = self.browser.find_element_by_id("user_password")
-        username_field.clear()
-        password_field.clear()
-        username_field.send_keys(username)
-        password_field.send_keys(password)
-        login_attempt = self.browser.find_element_by_id("sysverb_login")
-        login_attempt.click()
-        
+
+        #clicca su Corso
+        self.browser.find_element_by_id("GInterface.Instances[0].Instances[0]_Combo2").click()
+
+        #Clicca sulla barra di ricerca
+        cerca_orario = self.browser.find_element_by_id("GInterface.Instances[1].Instances[1].bouton_Edit")
+        cerca_orario.clear()
+        cerca_orario.send_keys(ricerca)
+
+        #Clicca la lente per ricercare
+        self.browser.find_element_by_id("GInterface.Instances[1].Instances[1].bouton_Bouton").click()
+
+        #clicca su in griglia per cambiare la visulalizzazione
+        self.browser.find_element_by_id("GInterface.Instances[0].Instances[2].bouton_Bouton").click()
+
+        #Preme i tasti giù e invio per cambire la selezione da griglia ad elenco
+        time.sleep(1)
+        k.press(Key.down)
+        time.sleep(1)
+        k.release(Key.down)
+        k.press(Key.enter)
+        k.release(Key.enter)
+
+        time.sleep(2)
+
+        soup = BeautifulSoup(self.browser.page_source)
+
+        #cerca la tabella che contiene l'orario
+        table = soup.find('table', id="GInterface.Instances[1].Instances[8]_Contenu_0")
+
+        #cerca le righe che contengono le info sulle materie (oario inizio e fine, docente, ...)
+        rows = table.find_all_next('tr', {"class": "AvecMain c_7"})
+
+        #cerca nella tabella il giorno
+        giorni = table.find_all_next('td', {"class": "Gras"})
+
+        for i, row in enumerate(rows):
+            for el in row.find_all_next('td'):
+                print(el.text)
+
+        giorno = ""
+
+        for g in giorni:
+            pattern = r'(?P<giorno>\w{3}).*\s(?P<dd>\d\d)\s(?P<mese>\w{3,10})\s+(?P<anno>\d\d\d\d)'
+            m = re.search(pattern, g.text)
+            if m:
+                giorno = m.group('giorno')
+
+
+
+
+        e = "(?P<hinizio>\d{2})h\d{2} - (\d\d)h(\d\d) (?P<materia>[\w\s]+) (?P<classe>\w{3,6})\s+(N°\d+)"
+
         try:
             login_status = self.browser.find_element_by_id("sysparm_search")
             snow_logged = True
@@ -86,21 +126,6 @@ class Scrapper:
             print("ERROR: TimeoutException " + str(element_id))
 
         return loaded
-
-    def save_report(self):
-        self.browser.get('http://localhost:8080/login.html')
-        element = self.browser.find_element_by_id('container') # find part of the page you want image of
-        location = element.location
-        size = element.size
-        png = self.browser.get_screenshot_as_png() # saves screenshot of entire page
-        fox.quit()
-        im = Image.open(BytesIO(png)) # uses PIL library to open image in memory
-        left = location['x']
-        top = location['y']
-        right = location['x'] + size['width']
-        bottom = location['y'] + size['height']
-        im = im.crop((left, top, right, bottom)) # defines crop points
-        im.save('report.png') # saves new cropped image
 
     def exit(self):
         self.browser.close()
