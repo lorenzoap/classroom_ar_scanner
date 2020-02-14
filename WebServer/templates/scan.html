@@ -1,20 +1,18 @@
 {% extends "base.html" %}
 
 {% block head %}
-	<script src="aframe.min.js"></script>
-	<script src="aframe-ar.js"></script>
+	<script src="{{ url_for('static', filename='js/aframe.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/aframe-ar.js') }}"></script>
+	<style>
+		body {
+			margin : 0px;
+			overflow: hidden;
+		}
+	</style>
 {% endblock %}
 
 {% block body %}
-	<script type="text/javascript">
-		AFRAME.registerComponent("text_test", {
-			init: function()
-			{
-				this.el.setAttribute("value", "Hello, World!");
-			}
-		});
-	</script>
-	<a-scene id="scene" embedded arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix;" markers_generator>
+	<a-scene id="scene" embedded arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix;">
 		<a-marker type="barcode" value="0">
 			<a-box position="0.0 0.0 0.0" scale="2.0 0.1 1.0" color="#999999"></a-box>
 			<a-text position="0.0 0.25 -0.35" rotation="-90.0 0.0 0.0" scale="0.5 0.5 1.0" align="center" value="Aula 430" color="#000000"></a-text>
