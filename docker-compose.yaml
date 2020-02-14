@@ -1,6 +1,7 @@
 version: "3"
 services:
         cas_db:
+                container_name: db
                 environment:
                         - MYSQL_DATABASE=classroom_timetables
                         - MYSQL_ROOT_PASSWORD=Punk42h2AsaCbzs
@@ -10,6 +11,7 @@ services:
                 restart: unless-stopped
         cas_web:
                 build: ./WebServer/
+                container_name: web
                 depends_on:
                         - cas_db
                 image: cas_web
@@ -18,8 +20,19 @@ services:
                 ports:
                         - 80:5000
                 restart: unless-stopped
+        # cas_proxy:
+        #         build: ./Proxy/
+        #         depends_on:
+        #                 - cas_web
+        #         networks:
+        #                 - cas
+        #         ports:
+        #                 - 80:80
+        #                 - 443:443
+        #         restart: unless-stopped
         cas_fetch:
                 build: ./FetchServer/
+                container_name: fetch
                 depends_on:
                         - cas_db
                 image: cas_fetch
