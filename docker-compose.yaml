@@ -17,19 +17,19 @@ services:
                 image: cas_web
                 networks:
                         - cas
-                ports:
-                        - 80:5000
+                # ports:
+                #         - 80:5000
                 restart: unless-stopped
-        # cas_proxy:
-        #         build: ./Proxy/
-        #         depends_on:
-        #                 - cas_web
-        #         networks:
-        #                 - cas
-        #         ports:
-        #                 - 80:80
-        #                 - 443:443
-        #         restart: unless-stopped
+        cas_proxy:
+                build: ./Proxy/
+                depends_on:
+                        - cas_web
+                networks:
+                        - cas
+                ports:
+                        - 80:80
+                        - 443:443
+                restart: unless-stopped
         cas_fetch:
                 build: ./FetchServer/
                 container_name: fetch
