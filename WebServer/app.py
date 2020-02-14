@@ -9,7 +9,7 @@ def index():
 
 @app.route("/scan")
 def scan():
-	return render_template("base.html", title="Scan Classroom")
+	return render_template("scan.html", title="Scan Classroom")
 
 if __name__ == "__main__":
 	app.run(debug=True, host="0.0.0.0")
