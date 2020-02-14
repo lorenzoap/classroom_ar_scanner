@@ -17,7 +17,7 @@ use School_Hours;
 drop table if exists `classroom`;
 create table if not exists `classroom` (
 
-	`code` int primary key,
+    `code` int primary key,
     `name` varchar(16) unique not null
     
 );
@@ -37,7 +37,7 @@ create table if not exists `school_hour` (
 	
     `id` int primary key auto_increment,
     `classroom_id` int references day(`classroom_code`),
-	`start_time` time not null,
+    `start_time` time not null,
     `end_time` time not null,
     `teacher` varchar (32),
     `day` date not null,
