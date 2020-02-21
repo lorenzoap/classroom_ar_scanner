@@ -7,7 +7,6 @@ app = Flask(__name__)
 def stampa_dati():
     scrapper = Scrapper()
     dati = scrapper.cerca_orario_aule("428 (A-422)")
-    print(dati)
     ris = ""
     for giorni in dati:
         for giorno in giorni.values():
@@ -17,6 +16,6 @@ def stampa_dati():
                 for materie in giorno:
                     for materia in materie.values():
                         ris += materia + " "
-                ris += "<br>"
+                    ris += "<br>"
             ris += "<br>"
     return ris

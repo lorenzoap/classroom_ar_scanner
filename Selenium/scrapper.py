@@ -4,6 +4,7 @@ import json
 import time
 import datetime
 from builtins import print
+from operator import le
 
 site.addsitedir('./PIL')
 site.addsitedir('./selenium')
@@ -61,15 +62,15 @@ class Scrapper:
         # cerca le righe che contengono le info sulle materie (oario inizio e fine, docente, ...)
         rows = table.find_all('tr', recursive=True)
 
-        settimana = []
+        settimana = [] # Contiene tutto l'orario della settimana
 
-        giorno = {'giornoTesto': None, 'materie': None}
+        giorno = {'giornoTesto': None, 'materie': None} # Contiene il giorno in forma testuale e le materie del giorno
 
-        materie = []
+        materie = [] # Contiene le materie del giorno
 
-        lezione = {'time': None, 'lesson': None, 'teacher': None, 'classe': None}
+        lezione = {'time': None, 'lesson': None, 'teacher': None, 'classe': None} # Contiene i dati della lezione.
 
-        primaVolta = True
+        primaVolta = True # Serve ha non far fare l'inserimento nei dizionari al primo ciclo
 
         for row in rows:
             tds = row.find_all('td', recursive=True)
@@ -100,46 +101,10 @@ class Scrapper:
                         materie.append(lezione)
                         lezione = {'time': None, 'lesson': None, 'teacher': None, 'classe': None}
                         break
+        giorno['materie'] = materie
+        settimana.append(giorno)
         print(settimana)
         return settimana
-
-
-
-
-        '''# cerca nella tabella il giorno
-        giorni = table.find_all_next('td', {"class": "Gras"})
-
-        giorniStr = []
-
-        for giorno in giorni:
-            giorniStr.append(giorno.text)
-
-        indexGiorno = 0
-
-        for i, row in enumerate(rows):
-            row_data = {'time': None, 'lesson': None, 'teacher': None, 'classe': None}
-            children = row.find_all('td', recursive=True)
-            data['day'] = giorniStr[indexGiorno]
-            for j, child in enumerate(children):  # enumerate = indicizza l'array
-                # Cerca Orario inizio fine
-                if(j == 2):
-                    row_data['time'] = child.text.strip()
-
-                # Cerca Lezione
-                if(j == 3):
-                    row_data['lesson'] = child.text.strip()
-
-                # Cerca docente
-                if(j == 4):
-                    row_data['teacher'] = child.text.strip()
-
-                # Cerca Classe
-                if(j == 5):
-                    row_data['classe'] = self.parse_classe(child.text)
-                    data['materie'] = row_data
-                    break
-        return data
-        '''
 
     # Clicca il numero della prossima settimana
     def clicca_numero_settimana_dopo(self):
