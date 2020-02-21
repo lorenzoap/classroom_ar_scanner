@@ -69,7 +69,7 @@ class Scrapper:
 
         settimana = []  # Contiene tutto l'orario della settimana
 
-        giorno = {'giornoTesto': None, 'materie': None}  # Contiene il giorno in forma testuale e le materie del giorno
+        giorno = {'giorno': None, 'materie': None}  # Contiene il giorno in forma testuale e le materie del giorno
 
         materie = []  # Contiene le materie del giorno
 
@@ -85,9 +85,9 @@ class Scrapper:
                         giorno['materie'] = materie
                         materie = []
                         settimana.append(giorno)
-                        giorno = {'giornoTesto': None, 'materie': None}
+                        giorno = {'giorno': None, 'materie': None}
                     primaVolta = False
-                    giorno['giornoTesto'] = td.text.strip()
+                    giorno['giorno'] = td.text.strip()
                 elif td.has_attr('style'):
                     if (i == 2):
                         lezione['time'] = td.text.strip()
@@ -128,12 +128,12 @@ class Scrapper:
     def parse_classe(self, text):
         pattern = 'SAM [IED][1-4][ABCD]{2}'
         classi = re.findall(pattern, text)
-        ris = ""
+        ris =  []
         if classi is None:
             return ""
         for classe in classi:
-            ris += classe + " "
-        return ris.strip()
+            ris.append(classe.strip())
+        return ris
 
     def get_chart(self):
         url = str(self.url)

@@ -25,7 +25,11 @@ def aule():
             else:
                 for materie in giorno:
                     for materia in materie.values():
-                        ris += materia + " "
+                        if isinstance(materia, str):
+                            ris += materia + " "
+                        else:
+                            for classe in materia:
+                                ris += classe + " "
                     ris += "<br>"
             ris += "<br>"
     return ris
