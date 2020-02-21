@@ -1,10 +1,8 @@
 import re
 import site
-import json
 import time
 import datetime
 from builtins import print
-from operator import le
 
 site.addsitedir('./PIL')
 site.addsitedir('./selenium')
@@ -16,6 +14,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
 
+
 class Scrapper:
     def __init__(self, url="https://www.cpttrevano.ti.ch/orario/invite?invite=true"):
         self.url = url
@@ -23,8 +22,8 @@ class Scrapper:
         opts.set_headless()
         assert opts.headless
         self.browser = webdriver.Chrome(options=opts)
-     
-    def cerca_orario_aule(self, ricerca):
+
+    def cerca_orario_aule(self, ricerca, settimanaDopo):
         snow_logged = False
         self.browser.get(self.url)
         self.loaded_check("GInterface.Instances[0].Instances[0]_Combo1")
@@ -42,9 +41,11 @@ class Scrapper:
 
         time.sleep(1)
 
-        #self.clicca_numero_settimana_dopo()
+        # Se il parametro settimanaDopo è True passa alla settimana dopo
+        if settimanaDopo:
+            self.clicca_numero_settimana_dopo()
 
-        #apre il menu per cambiare la visulalizzazione
+        # apre il menu per cambiare la visulalizzazione
         self.browser.find_element_by_id("GInterface.Instances[0].Instances[2].bouton_Bouton").click()
 
         time.sleep(1)
@@ -59,24 +60,28 @@ class Scrapper:
         # cerca la tabella che contiene l'orario
         table = soup.find('table', id="GInterface.Instances[1].Instances[8]_Contenu_0")
 
+        # Se la tabella è nulla significa settimana senza orari
+        if (table is None):
+            return None
+
         # cerca le righe che contengono le info sulle materie (oario inizio e fine, docente, ...)
         rows = table.find_all('tr', recursive=True)
 
-        settimana = [] # Contiene tutto l'orario della settimana
+        settimana = []  # Contiene tutto l'orario della settimana
 
-        giorno = {'giornoTesto': None, 'materie': None} # Contiene il giorno in forma testuale e le materie del giorno
+        giorno = {'giornoTesto': None, 'materie': None}  # Contiene il giorno in forma testuale e le materie del giorno
 
-        materie = [] # Contiene le materie del giorno
+        materie = []  # Contiene le materie del giorno
 
-        lezione = {'time': None, 'lesson': None, 'teacher': None, 'classe': None} # Contiene i dati della lezione.
+        lezione = {'time': None, 'lesson': None, 'teacher': None, 'classe': None}  # Contiene i dati della lezione.
 
-        primaVolta = True # Serve ha non far fare l'inserimento nei dizionari al primo ciclo
+        primaVolta = True  # Serve ha non far fare l'inserimento nei dizionari al primo ciclo
 
         for row in rows:
             tds = row.find_all('td', recursive=True)
             for i, td in enumerate(tds):
                 if td.has_attr('class') and td['class'][0] == 'Gras':
-                    if(not primaVolta):
+                    if (not primaVolta):
                         giorno['materie'] = materie
                         materie = []
                         settimana.append(giorno)
@@ -103,7 +108,6 @@ class Scrapper:
                         break
         giorno['materie'] = materie
         settimana.append(giorno)
-        print(settimana)
         return settimana
 
     # Clicca il numero della prossima settimana
@@ -116,6 +120,8 @@ class Scrapper:
             if settimana.text == str(numero_settimana + 1):
                 settimana.click()
                 break
+            elif settimana.text == 'F':
+                settimana.click()
             else:
                 pass
 
@@ -131,12 +137,13 @@ class Scrapper:
 
     def get_chart(self):
         url = str(self.url)
-        self.browser.get(url) 
+        self.browser.get(url)
         self.loaded_check("chart-container-builder")
         time.sleep(2)
         try:
             element = self.browser.find_element_by_class_name('highcharts-contextbutton')
-            self.browser.execute_script("""var element = arguments[0];element.parentNode.removeChild(element);""", element)
+            self.browser.execute_script("""var element = arguments[0];element.parentNode.removeChild(element);""",
+                                        element)
         except:
             pass
         chart = self.browser.find_element_by_id("report-container-builder")
@@ -147,24 +154,25 @@ class Scrapper:
     def get_data(self):
         availability = {}
         agreed_availability = {
-            "Application Management" : 99,
-            "EWP Services" : 99,
-            "eArchive" : 99
+            "Application Management": 99,
+            "EWP Services": 99,
+            "eArchive": 99
         }
-        
+
         s3_url = str(self.s3_url)
-        self.browser.get(s3_url) 
+        self.browser.get(s3_url)
         self.loaded_check("AvailPercLabel")
-        measured_availability = self.browser.find_element_by_id("AvailPercLabel").get_attribute('innerHTML').replace('%', '')
+        measured_availability = self.browser.find_element_by_id("AvailPercLabel").get_attribute('innerHTML').replace(
+            '%', '')
         availability["measured_availability"] = measured_availability
         availability["agreed_availability"] = 99
 
         return availability
-        
-    def loaded_check(self,element_id):
+
+    def loaded_check(self, element_id):
         loaded = False
         try:
-            myElem = WebDriverWait(self.browser, 5).until(EC.presence_of_element_located((By.ID, element_id)))            
+            myElem = WebDriverWait(self.browser, 5).until(EC.presence_of_element_located((By.ID, element_id)))
             loaded = True
         except TimeoutException:
             print("ERROR: TimeoutException " + str(element_id))
@@ -174,9 +182,6 @@ class Scrapper:
     def exit(self):
         self.browser.close()
 
+
 if __name__ == "__main__":
     pass
-
-
-
-
