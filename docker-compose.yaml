@@ -4,7 +4,9 @@ services:
                 container_name: db
                 environment:
                         - MYSQL_DATABASE=classroom_timetables
-                        - MYSQL_ROOT_PASSWORD=Punk42h2AsaCbzs
+                        - MYSQL_USER=query
+                        - MYSQL_PASSWORD=Punk42h2AsaCbzs
+                        - MYSQL_RANDOM_ROOT_PASSWORD=yes
                 image: mariadb:10.4.12-bionic
                 networks:
                         - cas
