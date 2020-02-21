@@ -3,6 +3,8 @@ import site
 import json
 import time
 import datetime
+from builtins import print
+
 site.addsitedir('./PIL')
 site.addsitedir('./selenium')
 from selenium import webdriver
@@ -57,26 +59,67 @@ class Scrapper:
         table = soup.find('table', id="GInterface.Instances[1].Instances[8]_Contenu_0")
 
         # cerca le righe che contengono le info sulle materie (oario inizio e fine, docente, ...)
-        rows = table.find_all_next('tr', {"class": "AvecMain c_7"})
+        rows = table.find_all('tr', recursive=True)
+
+        settimana = []
+
+        giorno = {'giornoTesto': None, 'materie': None}
+
+        materie = []
+
+        lezione = {'time': None, 'lesson': None, 'teacher': None, 'classe': None}
+
+        primaVolta = True
+
+        for row in rows:
+            tds = row.find_all('td', recursive=True)
+            for i, td in enumerate(tds):
+                if td.has_attr('class') and td['class'][0] == 'Gras':
+                    if(not primaVolta):
+                        giorno['materie'] = materie
+                        materie = []
+                        settimana.append(giorno)
+                        giorno = {'giornoTesto': None, 'materie': None}
+                    primaVolta = False
+                    giorno['giornoTesto'] = td.text.strip()
+                elif td.has_attr('style'):
+                    if (i == 2):
+                        lezione['time'] = td.text.strip()
+
+                        # Cerca Lezione
+                    if (i == 3):
+                        lezione['lesson'] = td.text.strip()
+
+                        # Cerca docente
+                    if (i == 4):
+                        lezione['teacher'] = td.text.strip()
+
+                        # Cerca Classe
+                    if (i == 5):
+                        lezione['classe'] = self.parse_classe(td.text)
+                        materie.append(lezione)
+                        lezione = {'time': None, 'lesson': None, 'teacher': None, 'classe': None}
+                        break
+        print(settimana)
+        return settimana
 
 
-        # cerca nella tabella il giorno
+
+
+        '''# cerca nella tabella il giorno
         giorni = table.find_all_next('td', {"class": "Gras"})
 
         giorniStr = []
 
         for giorno in giorni:
-            giorniStr.append(giorno)
-
-        data = {}
+            giorniStr.append(giorno.text)
 
         indexGiorno = 0
-
-        day = giorniStr[indexGiorno]
 
         for i, row in enumerate(rows):
             row_data = {'time': None, 'lesson': None, 'teacher': None, 'classe': None}
             children = row.find_all('td', recursive=True)
+            data['day'] = giorniStr[indexGiorno]
             for j, child in enumerate(children):  # enumerate = indicizza l'array
                 # Cerca Orario inizio fine
                 if(j == 2):
@@ -93,14 +136,10 @@ class Scrapper:
                 # Cerca Classe
                 if(j == 5):
                     row_data['classe'] = self.parse_classe(child.text)
-                    data[day] = row_data
-                    indexGiorno += 1
+                    data['materie'] = row_data
                     break
-
-                # Cerca Settimana
-                '''if(j == 8):
-                    row_data['settimana'] = col.text.strip()'''
         return data
+        '''
 
     # Clicca il numero della prossima settimana
     def clicca_numero_settimana_dopo(self):
