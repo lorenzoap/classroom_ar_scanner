@@ -1,10 +1,11 @@
 from flask import Flask
 from flask import render_template
 from flask_sqlalchemy import SQLAlchemy
+import time
 
 app = Flask("classroom_ar_scanner")
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://query:Punk42h2AsaCbzs@db:3306/classroom_timetables"
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://query:Punk42h2AsaCbzs@db:3306/classroom_timetables"
 app.config["SQLALCHEMY_ECHO"] = True # Debug
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
