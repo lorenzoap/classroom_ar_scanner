@@ -1,11 +1,12 @@
 from flask import Flask
-from flask import redirect, render_template
+from flask import redirect, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 import time
 
 app = Flask("classroom_ar_scanner")
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://query:Punk42h2AsaCbzs@db:3306/classroom_timetables"
+# app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///classroom.db" # Debug
 app.config["SQLALCHEMY_ECHO"] = True # Debug
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
@@ -48,6 +49,33 @@ def index():
 def scan():
 	classrooms = Classroom.query.all()
 	return render_template("scan.html", title = "Scan Classroom", classrooms = classrooms)
+
+@app.route("/admin")
+def admin():
+	classrooms = Classroom.query.order_by(Classroom.code).all()
+	return render_template("admin.html", title = "DB Admin", classrooms = classrooms)
+
+@app.route("/admin_delete_cr/<int:code>")
+def admin_delete_cr(code):
+	classroom_to_delete = Classroom.query.get_or_404(code)
+	db.session.delete(classroom_to_delete)
+	db.session.commit()
+	return redirect("/admin")
+
+@app.route("/admin_add_cr", methods = ["POST"])
+def admin_add_cr():
+	name = request.form["name"]
+	new_classroom = Classroom(name = name)
+	db.session.add(new_classroom)
+	db.session.commit()
+	return redirect("/admin")
+
+@app.route("/admin_edit_cr/<int:code>", methods = ["POST"])
+def admin_edit_cr(code):
+	classroom_to_edit = Classroom.query.get_or_404(code)
+	classroom_to_edit.name = request.form["name"]
+	db.session.commit()
+	return redirect("/admin")
 
 if __name__ == "__main__":
 	app.run(debug=True, host="0.0.0.0")

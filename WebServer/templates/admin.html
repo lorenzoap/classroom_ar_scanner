@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block head %}
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
+{% endblock %}
+
+{% block body %}
+	<h2>Classrooms</h2>
+	<table class="table">
+		<thead>
+			<tr>
+				<td>Code</td>
+				<td>Name</td>
+				<td></td>
+			</tr>
+		</thead>
+		<tbody>
+			{% for classroom in classrooms %}
+			<tr>
+				<form action="/admin_edit_cr/{{ classroom.code }}" method="post">
+					<td>{{ classroom.code }}</td>
+					<td><input type="text" value="{{ classroom.name }}" name="name"/></td>
+					<td><a class="btn btn-danger btn-sm" href="/admin_delete_cr/{{ classroom.code }}">Delete</a><input class="btn btn-success btn-sm" type="submit" value="Save changes"/></td>
+				</form>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	<hr/>
+	<form action="/admin_add_cr" method="post">
+		<input type="text" name="name" placeholder="Classroom name"/>
+		<input class="btn btn-success btn-sm" type="submit" value="Add"/>
+	</form>
+{% endblock %}
