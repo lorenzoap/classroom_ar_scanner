@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import render_template
+from flask import redirect, render_template
 from flask_sqlalchemy import SQLAlchemy
 import time
 
@@ -13,7 +13,7 @@ db = SQLAlchemy(app)
 class Classroom(db.Model):
 	__tablename__ = "classroom"
 	code = db.Column(db.Integer, primary_key = True)
-	name = db.Column(db.String(16), nullable = False)
+	name = db.Column(db.String(16), nullable = False, unique = True)
 
 	def __repr__(self):
 		return f"Classroom(code: {self.code}, name: {self.name})"
@@ -46,7 +46,8 @@ def index():
 
 @app.route("/scan")
 def scan():
-	return render_template("scan.html", title="Scan Classroom")
+	classrooms = Classroom.query.all()
+	return render_template("scan.html", title = "Scan Classroom", classrooms = classrooms)
 
 if __name__ == "__main__":
 	app.run(debug=True, host="0.0.0.0")
