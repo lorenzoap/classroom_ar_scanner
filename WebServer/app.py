@@ -55,14 +55,14 @@ def admin():
 	classrooms = Classroom.query.order_by(Classroom.code).all()
 	return render_template("admin.html", title = "DB Admin", classrooms = classrooms)
 
-@app.route("/admin_delete_cr/<int:code>")
+@app.route("/admin/delete/<int:code>")
 def admin_delete_cr(code):
 	classroom_to_delete = Classroom.query.get_or_404(code)
 	db.session.delete(classroom_to_delete)
 	db.session.commit()
 	return redirect("/admin")
 
-@app.route("/admin_add_cr", methods = ["POST"])
+@app.route("/admin/add", methods = ["POST"])
 def admin_add_cr():
 	name = request.form["name"]
 	new_classroom = Classroom(name = name)
@@ -70,9 +70,9 @@ def admin_add_cr():
 	db.session.commit()
 	return redirect("/admin")
 
-@app.route("/admin_edit_cr/<int:code>", methods = ["POST"])
-def admin_edit_cr(code):
-	classroom_to_edit = Classroom.query.get_or_404(code)
+@app.route("/admin/edit", methods = ["POST"])
+def admin_edit_cr():
+	classroom_to_edit = Classroom.query.get_or_404(request.form["classroom_id"])
 	classroom_to_edit.name = request.form["name"]
 	db.session.commit()
 	return redirect("/admin")
