@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% set title = "Errore" %}
+
+{% block head %}
+	<link rel="stylesheet" href="{{ url_for('static', filename = 'css/error.css') }}"/>
+{% endblock %}
+
+{% block body %}
+	<h1 id="title">È avvenuto un errore.</h1>
+	<hr/>
+	<p id="message">{{ message }}</p>
+	<p id="details">{{ details }}</p>
+{% endblock %}
