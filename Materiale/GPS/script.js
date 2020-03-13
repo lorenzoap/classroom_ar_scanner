@@ -1,5 +1,5 @@
 function load(){
-    setInterval(getGeoLocation, 100);
+    setInterval(getGeoLocation, 500);
 }
 
 
@@ -7,13 +7,13 @@ function load(){
 
 function getGeoLocation(){
     if(navigator.geolocation){
-      navigator.geolocation.watchPosition(onSuccess, onError);
+      var id = navigator.geolocation.watchPosition(onSuccess, onError);
+      navigator.geolocation.clearWatch(id);
     }
     else
     {
       console.log('Not supported');
     }
-    console.log("Ciao");
 }
 
 function onSuccess(position){
