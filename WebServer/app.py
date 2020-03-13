@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import redirect, render_template, request
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.exc import IntegrityError
 import time
 
 app = Flask("classroom_ar_scanner")
@@ -74,8 +75,13 @@ def admin_add_cr():
 		return render_template("error.html", message = "Errore sconosciuto.", details = str(e))
 
 	new_classroom = Classroom(name = name)
+
 	db.session.add(new_classroom)
-	db.session.commit()
+	try:
+		db.session.commit()
+	except IntegrityError as e:
+		return render_template("error.html", message = "L'elemento esiste già nel database.", details = str(e))
+
 	return redirect("/admin")
 
 @app.route("/admin/edit", methods = ["POST"])
@@ -93,7 +99,12 @@ def admin_edit_cr():
 
 	classroom_to_edit = Classroom.query.get_or_404(old_code)
 	classroom_to_edit.name = request.form["name"]
-	db.session.commit()
+
+	try:
+		db.session.commit()
+	except IntegrityError as e:
+		return render_template("error.html", message = "L'elemento esiste già nel database.", details = str(e))
+
 	return redirect("/admin")
 
 if __name__ == "__main__":
