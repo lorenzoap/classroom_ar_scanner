@@ -7,8 +7,7 @@ function load(){
 
 function getGeoLocation(){
     if(navigator.geolocation){
-      var id = navigator.geolocation.watchPosition(onSuccess, onError);
-      navigator.geolocation.clearWatch(id);
+      navigator.geolocation.watchPosition(onSuccess, onError);
     }
     else
     {
