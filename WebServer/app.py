@@ -64,7 +64,15 @@ def admin_delete_cr(code):
 
 @app.route("/admin/add", methods = ["POST"])
 def admin_add_cr():
-	name = request.form["name"]
+	name = ""
+
+	try:
+		name = str(request.form["name"])
+	except ValueError as e:
+		return render_template("error.html", message = "Uno o più valori inseriti non sono validi.", details = str(e))
+	except Exception as e:
+		return render_template("error.html", message = "Errore sconosciuto.", details = str(e))
+
 	new_classroom = Classroom(name = name)
 	db.session.add(new_classroom)
 	db.session.commit()
@@ -72,7 +80,18 @@ def admin_add_cr():
 
 @app.route("/admin/edit", methods = ["POST"])
 def admin_edit_cr():
-	classroom_to_edit = Classroom.query.get_or_404(request.form["classroom_id"])
+	old_code = 0
+	new_name = ""
+
+	try:
+		old_code = int(request.form["classroom_id"])
+		new_name = str(request.form["name"])
+	except ValueError as e:
+		return render_template("error.html", message = "Uno o più valori inseriti non sono validi.", details = str(e))
+	except Exception as e:
+		return render_template("error.html", message = "Errore sconosciuto.", details = str(e))
+
+	classroom_to_edit = Classroom.query.get_or_404(old_code)
 	classroom_to_edit.name = request.form["name"]
 	db.session.commit()
 	return redirect("/admin")
