@@ -18,7 +18,6 @@ function getGeoLocation(){
 function onSuccess(position){
     const{latitude, longitude} = position.coords;
 
-
     document.getElementById('demo').innerHTML =
     "Latitudine: " + latitude + "</br>" +
     "Longitudine: " + longitude + "</br>" +
