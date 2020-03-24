@@ -4,12 +4,10 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import IntegrityError
 import time
 
-app = Flask("classroom_ar_scanner")
+from flask_config import FlaskConfigDebug, FlaskConfigRelease
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://query:Punk42h2AsaCbzs@db:3306/classroom_timetables"
-# app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///classroom.db" # Debug
-app.config["SQLALCHEMY_ECHO"] = True # Debug
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app = Flask("classroom_ar_scanner")
+app.config.from_object(FlaskConfigDebug)
 db = SQLAlchemy(app)
 
 class Classroom(db.Model):
