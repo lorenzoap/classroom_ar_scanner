@@ -4,10 +4,10 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import IntegrityError
 import time
 
-from flask_config import FlaskConfigDebug, FlaskConfigRelease
+from flask_config import get_flask_config
 
 app = Flask("classroom_ar_scanner")
-app.config.from_object(FlaskConfigDebug)
+app.config.from_object(get_flask_config())
 db = SQLAlchemy(app)
 
 class Classroom(db.Model):
