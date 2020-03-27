@@ -17,18 +17,21 @@
 		<tbody>
 			{% for classroom in classrooms %}
 			<tr>
-				<form action="/admin/edit" method="post">
+				<form action="{{ url_for('admin_edit_cr') }}" method="post">
 					<input type="hidden" name="classroom_id" value="{{ classroom.code }}"/>
 					<td>{{ classroom.code }}</td>
 					<td><input type="text" value="{{ classroom.name }}" name="name"/></td>
-					<td><a class="btn btn-danger btn-sm" href="/admin/delete/{{ classroom.code }}">Delete</a><input class="btn btn-success btn-sm" type="submit" value="Save changes"/></td>
+					<td>
+						<a class="btn btn-danger btn-sm" href="{{ url_for('admin_delete_cr', code=classroom.code) }}">Delete</a>
+						<input class="btn btn-success btn-sm" type="submit" value="Save changes"/>
+					</td>
 				</form>
 			</tr>
 			{% endfor %}
 		</tbody>
 	</table>
 	<hr/>
-	<form action="/admin/add" method="post">
+	<form action="{{ url_for('admin_add_cr') }}" method="post">
 		<input type="text" name="name" placeholder="Classroom name"/>
 		<input class="btn btn-success btn-sm" type="submit" value="Add"/>
 	</form>

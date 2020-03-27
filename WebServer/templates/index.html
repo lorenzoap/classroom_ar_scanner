@@ -45,7 +45,7 @@
 						<img src="{{ url_for('static', filename='img/1.png') }}" class="card-img-top" alt="..." style="width: 80px;"/>
 						<p style="padding-bottom: 10px;"></p>
 						<p class="card-text">Cerca un'aula attraverso la funzione GPS.</p>
-						<a href="#" class="btn btn-primary">Test now</a>
+						<a href="{{ url_for('index') }}" class="btn btn-primary">Test now</a>
 					</div>
 				</div>
 			</div>
@@ -57,7 +57,7 @@
 						<img src="{{ url_for('static', filename='img/qr.png') }}" class="card-img-top" alt="..." style="width:80px;">
 						<p style="padding-bottom: 10px;"></p>
 						<p class="card-text">Esegui lo scan di un'aula.</p>
-						<a href="/scan" class="btn btn-primary">Test now</a>
+						<a href="{{ url_for('scan') }}" class="btn btn-primary">Test now</a>
 					</div>
 				</div>
 			</div>
@@ -75,19 +75,19 @@
 					<h5 class="font-weight-bold text-uppercase mt-3 mb-4">Pages</h5>
 					<ul class="list-unstyled"  id="pig">
 						<li>
-							<a href="index.html">Homepage</a>
+							<a href="{{ url_for('index') }}">Homepage</a>
 						</li>
 						<li>
-							<a href="work-in-progress.html">Search classroom</a>
+							<a href="{{ url_for('index') }}">Search classroom</a>
 						</li>
 						<li>
-							<a href="#!">Scan QR Code</a>
+							<a href="{{ url_for('scan') }}">Scan QR Code</a>
 						</li>
 						<li>
-							<a href="#!">About</a>
+							<a href="{{ url_for('index') }}">About</a>
 						</li>
 						<li>
-							<a href="#!">Guide</a>
+							<a href="{{ url_for('index') }}">Guide</a>
 						</li>
 					</ul>
 				</div>
@@ -135,10 +135,10 @@
 							<a href="https://www.instagram.com/p/BoEU3dFg7iYVZVSYKDbUbTiTwbxG12To5pk4jE0/?igshid=1ha3khf3n8msd">Pierpaolo Casati <i class="fab fa-instagram"></i></a>
 						</li>
 						<li>
-							<a href="#!">Claudio Engeler <i class="fab fa-instagram"></i></a>
+							<a href="{{ url_for('index') }}">Claudio Engeler <i class="fab fa-instagram"></i></a>
 						</li>
 						<li>
-							<a href="#!">Lorenzo Piazza <i class="fab fa-instagram"></i></a>
+							<a href="{{ url_for('index') }}">Lorenzo Piazza <i class="fab fa-instagram"></i></a>
 						</li>
 					</ul>
 				</div>
