@@ -1,9 +1,10 @@
 function load(){
+<<<<<<< HEAD
+    getGeoLocation();
+=======
     setInterval(getGeoLocation, 500);
+>>>>>>> 308b192f4918c5444bd5ccafbbec3759220926c7
 }
-
-
-
 
 function getGeoLocation(){
     if(navigator.geolocation){
@@ -17,15 +18,22 @@ function getGeoLocation(){
 
 function onSuccess(position){
     const{latitude, longitude} = position.coords;
+<<<<<<< HEAD
+=======
 
+>>>>>>> 308b192f4918c5444bd5ccafbbec3759220926c7
     document.getElementById('demo').innerHTML =
     "Latitudine: " + latitude + "</br>" +
     "Longitudine: " + longitude + "</br>" +
     "Timestamp: " + position.timestamp + "</br>" +
+<<<<<<< HEAD
+    "Distanza: " + calculateDistance(latitude, longitude, 46.845737,  9.231766);
+=======
     "Distanza: " + calculateDistance(46.033328, 8.967561, latitude,  longitude);
+>>>>>>> 308b192f4918c5444bd5ccafbbec3759220926c7
 
     console.log(latitude);
-    console.log(longitude)
+    console.log(longitude);
 }
 
 function onError(error){
