@@ -24,6 +24,7 @@
 					<td>
 						<a class="btn btn-danger btn-sm" href="{{ url_for('admin_delete_cr', code=classroom.code) }}">Delete</a>
 						<input class="btn btn-success btn-sm" type="submit" value="Save changes"/>
+						<a class="btn btn-info btn-sm" href="{{ url_for('admin_refresh_cr', code=classroom.code) }}">Refresh timetable</a>
 					</td>
 				</form>
 			</tr>
