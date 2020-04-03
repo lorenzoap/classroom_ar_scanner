@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import redirect, render_template, request
+from flask import redirect, render_template, request, url_for
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import IntegrityError
 import time
@@ -60,7 +60,7 @@ def admin_delete_cr(code):
 	classroom_to_delete = Classroom.query.get_or_404(code)
 	db.session.delete(classroom_to_delete)
 	db.session.commit()
-	return redirect("/admin")
+	return redirect(url_for("/admin"))
 
 @app.route("/admin/add", methods = ["POST"])
 def admin_add_cr():
@@ -81,7 +81,7 @@ def admin_add_cr():
 	except IntegrityError as e:
 		return render_template("error.html", message = "L'elemento esiste già nel database.", details = str(e))
 
-	return redirect("/admin")
+	return redirect(url_for("/admin"))
 
 @app.route("/admin/edit", methods = ["POST"])
 def admin_edit_cr():
@@ -104,13 +104,13 @@ def admin_edit_cr():
 	except IntegrityError as e:
 		return render_template("error.html", message = "L'elemento esiste già nel database.", details = str(e))
 
-	return redirect("/admin")
+	return redirect(url_for("admin"))
 
 @app.route("/admin/refresh/<int:code>")
 def admin_refresh_cr(code):
 	classroom = Classroom.query.get_or_404(code)
 	scrapper.refresh_classroom_timetable(classroom.name)
-	return redirect("/admin")
+	return redirect(url_for("admin"))
 
 if __name__ == "__main__":
 	app.run(debug=True, host="0.0.0.0")
