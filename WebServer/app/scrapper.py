@@ -157,11 +157,3 @@ def refresh_classroom_timetable(classroom_name):
 	thread = Thread(target = start_timetable_refresh_thread, args = (classroom_name,))
 	thread.start()
 	print("Started thread")
-
-if __name__ == "__main__":
-	s = Scrapper("https://www.cpttrevano.ti.ch/orario/invite?invite=true")
-
-	classroom = "420 (A-417)"
-
-	dati = json.dumps(s.get_timetable(classroom))
-	print(dati)
