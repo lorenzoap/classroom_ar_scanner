@@ -14,7 +14,7 @@ class FlaskConfigRelease(FlaskConfigBase):
 def get_flask_config():
 	debug_mode = os.environ.get("DEBUG_MODE")
 
-	if debug_mode == "yes":
+	if debug_mode in ["yes", "on", "true"]:
 		return FlaskConfigDebug
 	else:
 		return FlaskConfigRelease
