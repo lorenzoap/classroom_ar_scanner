@@ -12,11 +12,11 @@ from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
 
 class Scrapper:
-	def __init__(self, url):
+	def __init__(self, url, debug = False):
 		self.url = url
 
 		driver_options = Options()
-		driver_options.headless = False
+		driver_options.headless = not debug # Use headless mode if debug is disabled
 
 		self.browser = webdriver.Firefox(options = driver_options, executable_path = "./geckodriver")
 
