@@ -2,6 +2,7 @@ import datetime
 import json
 import re # Regex
 import time
+from threading import Thread
 
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
@@ -146,6 +147,16 @@ class Scrapper:
 
 	def __del__(self):
 		self.browser.close()
+
+def start_timetable_refresh_thread(classroom_name):
+	s = Scrapper("https://www.cpttrevano.ti.ch/orario/invite?invite=true")
+	print(s.get_timetable(classroom_name))
+	print("Stopped thread")
+
+def refresh_classroom_timetable(classroom_name):
+	thread = Thread(target = start_timetable_refresh_thread, args = (classroom_name,))
+	thread.start()
+	print("Started thread")
 
 if __name__ == "__main__":
 	s = Scrapper("https://www.cpttrevano.ti.ch/orario/invite?invite=true")
