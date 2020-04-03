@@ -5,6 +5,7 @@ from sqlalchemy.exc import IntegrityError
 import time
 
 from flask_config import get_flask_config
+import scrapper
 
 app = Flask("classroom_ar_scanner")
 app.config.from_object(get_flask_config())
@@ -103,6 +104,12 @@ def admin_edit_cr():
 	except IntegrityError as e:
 		return render_template("error.html", message = "L'elemento esiste già nel database.", details = str(e))
 
+	return redirect("/admin")
+
+@app.route("/admin/refresh/<int:code>")
+def admin_refresh_cr(code):
+	classroom = Classroom.query.get_or_404(code)
+	scrapper.refresh_classroom_timetable(classroom.name)
 	return redirect("/admin")
 
 if __name__ == "__main__":
