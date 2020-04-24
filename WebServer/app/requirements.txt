@@ -4,3 +4,4 @@ flask_sqlalchemy
 pymysql
 selenium
 bs4
+uwsgi
