@@ -2,3 +2,5 @@ flask
 flask-mysql
 flask_sqlalchemy
 pymysql
+selenium
+bs4

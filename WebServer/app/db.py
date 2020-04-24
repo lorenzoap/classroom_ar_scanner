@@ -1,5 +1,10 @@
 import time
-from app import db
+
+from flask_sqlalchemy import SQLAlchemy
+
+from app import app
+
+db = SQLAlchemy(app)
 
 class Classroom(db.Model):
 	__tablename__ = "classroom"

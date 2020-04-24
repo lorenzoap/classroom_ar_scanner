@@ -1,7 +1,12 @@
-from flask import redirect, render_template, request, url_for
+from flask import redirect
+from flask import render_template
+from flask import request
+from flask import url_for
 from sqlalchemy.exc import IntegrityError
-from app import scrapper, app
-from app.db import Classroom
+
+from app import app
+from db import Classroom
+from db import db
 
 @app.route("/")
 def index():

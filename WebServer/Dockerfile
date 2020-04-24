@@ -8,4 +8,4 @@ WORKDIR /app/
 RUN apk add --no-cache gcc libc-dev mariadb-dev && \
     pip install --requirement requirements.txt
 
-CMD ["python", "app.py"]
+CMD ["python", "run.py"]
