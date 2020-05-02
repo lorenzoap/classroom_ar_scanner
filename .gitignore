@@ -4,3 +4,4 @@ __pycache__
 classroom.db
 pyvenv/
 *.log
+geckodriver
