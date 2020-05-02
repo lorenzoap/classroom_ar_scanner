@@ -1,5 +1,6 @@
-from datetime import date, datetime, time
+from datetime import datetime
 
+from flask import flash
 from flask import redirect
 from flask import render_template
 from flask import request
@@ -7,6 +8,7 @@ from flask import url_for
 from sqlalchemy.exc import IntegrityError
 
 from app import app
+from bgtasks import fetch_classroom_timetable
 from db import Classroom, SchoolHour
 from db import db
 
@@ -79,7 +81,8 @@ def admin_edit_cr():
 @app.route("/admin/refresh/<int:code>")
 def admin_refresh_cr(code):
 	classroom = Classroom.query.get_or_404(code)
-	scrapper.refresh_classroom_timetable(classroom.name)
+	fetch_classroom_timetable(classroom.name)
+	flash("Gli orari stanno venendo aggiornati in background. Per vedere i nuovi orari, attendere circa 30 scondi e ricaricare la pagina.")
 	return redirect(url_for("admin"))
 
 @app.route("/admin/deletesh/<int:id>")
