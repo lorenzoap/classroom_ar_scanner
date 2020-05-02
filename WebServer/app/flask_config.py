@@ -3,6 +3,7 @@ import os
 class FlaskConfigBase:
 	SQLALCHEMY_TRACK_MODIFICATIONS = False
 	SQLALCHEMY_DATABASE_URI = "sqlite:///classroom.db"
+	SECRET_KEY = "eAWYiIPDcjIbYxrr1qfn"
 
 class FlaskConfigDebug(FlaskConfigBase):
 	SQLALCHEMY_ECHO = True
