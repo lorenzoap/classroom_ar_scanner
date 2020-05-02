@@ -147,13 +147,3 @@ class Scraper:
 
 	def __del__(self):
 		self.browser.close()
-
-# def start_timetable_refresh_thread(classroom_name):
-# 	s = Scraper("https://www.cpttrevano.ti.ch/orario/invite?invite=true")
-# 	print(s.get_timetable(classroom_name))
-# 	print("Stopped thread")
-#
-# def refresh_classroom_timetable(classroom_name):
-# 	thread = Thread(target = start_timetable_refresh_thread, args = (classroom_name,))
-# 	thread.start()
-# 	print("Started thread")
