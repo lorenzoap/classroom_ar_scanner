@@ -9,7 +9,12 @@
 		{% endblock %}
 	</head>
 	<body>
+		<p id="js-required" class="alert alert-danger">Questo sito necessita di JavaScript per funzionare correttamente!</p>
 		{% block body %}
 		{% endblock %}
+		<script type="text/javascript">
+			let alert = document.getElementById("js-required");
+			alert.style.display = "none";
+		</script>
 	</body>
 </html>
