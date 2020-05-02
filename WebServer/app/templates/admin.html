@@ -16,7 +16,7 @@
 	<div id="admin-tab-content" class="tab-content">
 		<div id="admin-tab-classrooms" class="tab-pane show active">
 			<h2>Classrooms</h2>
-			<a class="btn btn-warning" href="{{ url_for('refreshall') }}">Refresh all</a>
+			<a class="btn btn-warning" href="{{ url_for('admin_refreshall') }}">Refresh all</a>
 			<table class="table">
 				<thead>
 					<tr>
@@ -50,7 +50,7 @@
 		</div>
 		<div id="admin-tab-school-hours" class="tab-pane">
 			<h2>School hours</h2>
-			<a class="btn btn-warning" href="{{ url_for('shcleanup') }}">Delete old entries</a>
+			<a class="btn btn-warning" href="{{ url_for('admin_shcleanup') }}">Delete old entries</a>
 			<table class="table">
 				<thead>
 					<tr>

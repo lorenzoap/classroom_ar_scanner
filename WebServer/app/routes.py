@@ -129,8 +129,8 @@ def admin_edit_sh():
 
 	return redirect(url_for("admin"))
 
-@app.route("/shcleanup")
-def shcleanup():
+@app.route("/admin/shcleanup")
+def admin_shcleanup():
 	flash("Tutti gli orari vecchi sono stati eliminati dal database.")
 
 	school_hours_to_delete = SchoolHour.query.filter(SchoolHour.day < datetime.now()).delete()
@@ -139,8 +139,8 @@ def shcleanup():
 
 	return redirect(url_for("admin"))
 
-@app.route("/refreshall")
-def refreshall():
+@app.route("/admin/refreshall")
+def admin_refreshall():
 	classrooms = Classroom.query.all()
 	for classroom in classrooms:
 		fetch_classroom_timetable(classroom.name)
