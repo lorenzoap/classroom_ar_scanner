@@ -12,6 +12,16 @@
 	</head>
 	<body>
 		<p id="js-required" class="alert alert-danger">Questo sito necessita di JavaScript per funzionare correttamente!</p>
+		{% with messages = get_flashed_messages() %}
+			{% for message in messages %}
+				<div class="container-sm my-2 alert alert-info alert-dismissible">
+					{{ message }}
+					<button type="button" class="close" data-dismiss="alert">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+			{% endfor %}
+		{% endwith %}
 		{% block body %}
 		{% endblock %}
 		<script type="text/javascript">
