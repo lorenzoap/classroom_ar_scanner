@@ -138,3 +138,11 @@ def shcleanup():
 	db.session.commit()
 
 	return redirect(url_for("admin"))
+
+@app.route("/refreshall")
+def refreshall():
+	classrooms = Classroom.query.all()
+	for classroom in classrooms:
+		fetch_classroom_timetable(classroom.name)
+	flash("Gli orari di tutte le aule stanno venendo aggiornati in background. Ciò potrebbe impiegare molto tempo. Ricaricare la pagina per vedere le modifiche.")
+	return redirect(url_for("admin"))
