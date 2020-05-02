@@ -128,3 +128,13 @@ def admin_edit_sh():
 		return render_template("error.html", message = "L'elemento esiste già nel database.", details = str(e))
 
 	return redirect(url_for("admin"))
+
+@app.route("/shcleanup")
+def shcleanup():
+	flash("Tutti gli orari vecchi sono stati eliminati dal database.")
+
+	school_hours_to_delete = SchoolHour.query.filter(SchoolHour.day < datetime.now()).delete()
+
+	db.session.commit()
+
+	return redirect(url_for("admin"))
