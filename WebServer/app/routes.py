@@ -24,7 +24,7 @@ def scan():
 @app.route("/admin")
 def admin():
 	classrooms = Classroom.query.order_by(Classroom.code).all()
-	school_hours = SchoolHour.query.order_by(SchoolHour.day).all()
+	school_hours = SchoolHour.query.order_by(SchoolHour.day, SchoolHour.start_time).all()
 	return render_template("admin.html", title = "DB Admin", classrooms = classrooms, school_hours = school_hours)
 
 @app.route("/admin/deletecr/<int:code>")
