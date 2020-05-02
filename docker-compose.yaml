@@ -1,29 +1,15 @@
 version: "3"
 services:
-        cas_db:
-                container_name: db
-                environment:
-                        - MYSQL_DATABASE=classroom_timetables
-                        - MYSQL_USER=query
-                        - MYSQL_PASSWORD=Punk42h2AsaCbzs
-                        - MYSQL_RANDOM_ROOT_PASSWORD=yes
-                image: mariadb:10.4.12-bionic
-                networks:
-                        - cas
-                restart: unless-stopped
         cas_web:
                 build: ./WebServer/
-                container_name: web
-                depends_on:
-                        - cas_db
+                container_name: cas_web
                 image: cas_web
                 networks:
                         - cas
-                # ports:
-                #         - 80:5000
                 restart: unless-stopped
         cas_proxy:
                 build: ./Proxy/
+                container_name: cas_proxy
                 depends_on:
                         - cas_web
                 networks:
@@ -31,15 +17,6 @@ services:
                 ports:
                         - 80:80
                         - 443:443
-                restart: unless-stopped
-        cas_fetch:
-                build: ./FetchServer/
-                container_name: fetch
-                depends_on:
-                        - cas_db
-                image: cas_fetch
-                networks:
-                        - cas
                 restart: unless-stopped
 networks:
         cas:
