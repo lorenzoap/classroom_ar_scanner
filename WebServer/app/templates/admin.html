@@ -62,6 +62,17 @@
 					</tr>
 				</thead>
 				<tbody>
+					<tr>
+						<form action="{{ url_for('admin_add_sh') }}" method="post">
+							<td><input type="number" name="classroom_id" min="1"/></td>
+							<td><input type="time" name="start_time"/></td>
+							<td><input type="time" name="end_time"/></td>
+							<td><input type="text" name="teacher"/></td>
+							<td><input type="date" name="day"/></td>
+							<td><input type="text" name="subject"/></td>
+							<td><input class="btn btn-success btn-sm" type="submit" value="Add"/></td>
+						</form>
+					</tr>
 					{% for school_hour in school_hours %}
 					<tr>
 						<form action="{{ url_for('admin_edit_sh') }}" method="post">
@@ -79,17 +90,6 @@
 						</form>
 					</tr>
 					{% endfor %}
-					<tr>
-						<form action="{{ url_for('admin_add_sh') }}" method="post">
-							<td><input type="number" name="classroom_id" min="1"/></td>
-							<td><input type="time" name="start_time"/></td>
-							<td><input type="time" name="end_time"/></td>
-							<td><input type="text" name="teacher"/></td>
-							<td><input type="date" name="day"/></td>
-							<td><input type="text" name="subject"/></td>
-							<td><input class="btn btn-success btn-sm" type="submit" value="Add"/></td>
-						</form>
-					</tr>
 				</tbody>
 			</table>
 		</div>
