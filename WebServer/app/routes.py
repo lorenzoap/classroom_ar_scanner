@@ -88,7 +88,7 @@ def admin_edit_cr():
 def admin_refresh_cr(code):
 	classroom = Classroom.query.get_or_404(code)
 	fetch_classroom_timetable(classroom.name)
-	flash("Gli orari stanno venendo aggiornati in background. Per vedere i nuovi orari, attendere circa 30 scondi e ricaricare la pagina.")
+	flash("Gli orari stanno venendo aggiornati in background. Ricaricare regolarmente la pagina per visualizzare le modifiche.")
 	return redirect(url_for("admin"))
 
 @app.route("/admin/deletesh/<int:id>")
@@ -150,5 +150,5 @@ def admin_refreshall():
 	classrooms = Classroom.query.all()
 	for classroom in classrooms:
 		fetch_classroom_timetable(classroom.name)
-	flash("Gli orari di tutte le aule stanno venendo aggiornati in background. Ciò potrebbe impiegare molto tempo. Ricaricare la pagina per vedere le modifiche.")
+	flash("Gli orari di tutte le aule stanno venendo aggiornati in background. Ciò potrebbe impiegare molto tempo. Ricarica periodicamente la pagina per visualizzare le modifiche.")
 	return redirect(url_for("admin"))
