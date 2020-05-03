@@ -37,25 +37,11 @@
 			<h4>Provalo ora!</h4>
 		</div>
 		<div class="row">
-			<div class="col-sm-6">
+			<div class="col-6 offset-3">
 				<div class="card">
-					<div class="card-body">
-						<h5 class="card-title"><strong>Search classroom</strong></h5>
-						<p style="padding-bottom: 10px;"></p>
-						<img src="{{ url_for('static', filename='img/1.png') }}" class="card-img-top" alt="..." style="width: 80px;"/>
-						<p style="padding-bottom: 10px;"></p>
-						<p class="card-text">Cerca un'aula attraverso la funzione GPS.</p>
-						<a href="{{ url_for('index') }}" class="btn btn-primary">Test now</a>
-					</div>
-				</div>
-			</div>
-			<div class="col-sm-6">
-				<div class="card">
-					<div class="card-body">
+					<div class="card-body text-center">
 						<h5 class="card-title"><strong>Scan QR Code</strong></h5>
-						<p style="padding-bottom: 10px;"></p>
-						<img src="{{ url_for('static', filename='img/qr.png') }}" class="card-img-top" alt="..." style="width:80px;">
-						<p style="padding-bottom: 10px;"></p>
+						<img class="py-2" src="{{ url_for('static', filename='img/qr.png') }}" class="card-img-top" style="width:80px;"/>
 						<p class="card-text">Esegui lo scan di un'aula.</p>
 						<a href="{{ url_for('scan') }}" class="btn btn-primary">Test now</a>
 					</div>
@@ -76,9 +62,6 @@
 					<ul class="list-unstyled"  id="pig">
 						<li>
 							<a href="{{ url_for('index') }}">Homepage</a>
-						</li>
-						<li>
-							<a href="{{ url_for('index') }}">Search classroom</a>
 						</li>
 						<li>
 							<a href="{{ url_for('scan') }}">Scan QR Code</a>
