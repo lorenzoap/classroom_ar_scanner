@@ -5,35 +5,95 @@
 {% endblock %}
 
 {% block body %}
-	<h2>Classrooms</h2>
-	<table class="table">
-		<thead>
-			<tr>
-				<td>Code</td>
-				<td>Name</td>
-				<td></td>
-			</tr>
-		</thead>
-		<tbody>
-			{% for classroom in classrooms %}
-			<tr>
-				<form action="{{ url_for('admin_edit_cr') }}" method="post">
-					<input type="hidden" name="classroom_id" value="{{ classroom.code }}"/>
-					<td>{{ classroom.code }}</td>
-					<td><input type="text" value="{{ classroom.name }}" name="name"/></td>
-					<td>
-						<a class="btn btn-danger btn-sm" href="{{ url_for('admin_delete_cr', code=classroom.code) }}">Delete</a>
-						<input class="btn btn-success btn-sm" type="submit" value="Save changes"/>
-						<a class="btn btn-info btn-sm" href="{{ url_for('admin_refresh_cr', code=classroom.code) }}">Refresh timetable</a>
-					</td>
-				</form>
-			</tr>
-			{% endfor %}
-		</tbody>
-	</table>
-	<hr/>
-	<form action="{{ url_for('admin_add_cr') }}" method="post">
-		<input type="text" name="name" placeholder="Classroom name"/>
-		<input class="btn btn-success btn-sm" type="submit" value="Add"/>
-	</form>
+	<ul class="nav nav-tabs">
+		<li class="nav-item">
+			<a class="nav-link active" data-toggle="tab" href="#admin-tab-classrooms">Classrooms</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" data-toggle="tab" href="#admin-tab-school-hours">School hours</a>
+		</li>
+	</ul>
+	<div id="admin-tab-content" class="tab-content">
+		<div id="admin-tab-classrooms" class="tab-pane show active">
+			<h2>Classrooms</h2>
+			<a class="btn btn-warning" href="{{ url_for('admin_refreshall') }}">Refresh all</a>
+			<table class="table">
+				<thead>
+					<tr>
+						<td>Code</td>
+						<td>Name</td>
+						<td></td>
+					</tr>
+				</thead>
+				<tbody>
+					{% for classroom in classrooms %}
+					<tr>
+						<form action="{{ url_for('admin_edit_cr') }}" method="post">
+							<input type="hidden" name="classroom_id" value="{{ classroom.code }}"/>
+							<td>{{ classroom.code }}</td>
+							<td><input type="text" value="{{ classroom.name }}" name="name"/></td>
+							<td>
+								<a class="btn btn-danger btn-sm" href="{{ url_for('admin_delete_cr', code=classroom.code) }}">Delete</a>
+								<input class="btn btn-success btn-sm" type="submit" value="Save changes"/>
+								<a class="btn btn-info btn-sm" href="{{ url_for('admin_refresh_cr', code=classroom.code) }}">Refresh timetable</a>
+							</td>
+						</form>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			<hr/>
+			<form action="{{ url_for('admin_add_cr') }}" method="post">
+				<input type="text" name="name" placeholder="Classroom name"/>
+				<input class="btn btn-success btn-sm" type="submit" value="Add"/>
+			</form>
+		</div>
+		<div id="admin-tab-school-hours" class="tab-pane">
+			<h2>School hours</h2>
+			<a class="btn btn-warning" href="{{ url_for('admin_shcleanup') }}">Delete old entries</a>
+			<table class="table">
+				<thead>
+					<tr>
+						<td>Classroom ID</td>
+						<td>Start time</td>
+						<td>End time</td>
+						<td>Teacher</td>
+						<td>Day</td>
+						<td>Subject</td>
+						<td></td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<form action="{{ url_for('admin_add_sh') }}" method="post">
+							<td><input type="number" name="classroom_id" min="1"/></td>
+							<td><input type="time" name="start_time"/></td>
+							<td><input type="time" name="end_time"/></td>
+							<td><input type="text" name="teacher"/></td>
+							<td><input type="date" name="day"/></td>
+							<td><input type="text" name="subject"/></td>
+							<td><input class="btn btn-success btn-sm" type="submit" value="Add"/></td>
+						</form>
+					</tr>
+					{% for school_hour in school_hours %}
+					<tr>
+						<form action="{{ url_for('admin_edit_sh') }}" method="post">
+							<input type="hidden" name="id" value="{{ school_hour.id }}"/>
+							<td><input type="number" name="classroom_id" value="{{ school_hour.classroom_id }}" min="1" required/></td>
+							<td><input type="time" name="start_time" value="{{ school_hour.start_time }}" required/></td>
+							<td><input type="time" name="end_time" value="{{ school_hour.end_time }}" required/></td>
+							<td><input type="text" name="teacher" value="{{ school_hour.teacher }}" required/></td>
+							<td><input type="date" name="day" value="{{ school_hour.day }}" required/></td>
+							<td><input type="text" name="subject" value="{{ school_hour.school_subject }}" required/></td>
+							<td>
+								<a class="btn btn-danger btn-sm" href="{{ url_for('admin_delete_sh', id=school_hour.id) }}">Delete</a>
+								<input class="btn btn-success btn-sm" type="submit" value="Save changes"/>
+							</td>
+						</form>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
 {% endblock %}
