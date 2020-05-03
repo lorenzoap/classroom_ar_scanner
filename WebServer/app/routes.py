@@ -18,8 +18,14 @@ def index():
 
 @app.route("/scan")
 def scan():
+	data = []
 	classrooms = Classroom.query.all()
-	return render_template("scan.html", title = "Scan Classroom", classrooms = classrooms)
+
+	for classroom in classrooms:
+		school_hour = SchoolHour.query.filter(SchoolHour.classroom_id == classroom.code, SchoolHour.start_time < datetime.now(), SchoolHour.end_time > datetime.now()).first()
+		data.append({ "classroom": classroom, "school_hour": school_hour })
+
+	return render_template("scan.html", title = "Scan Classroom", data = data)
 
 @app.route("/admin")
 def admin():
