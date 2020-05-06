@@ -27,6 +27,10 @@ def scan():
 
 	return render_template("scan.html", title = "Scan Classroom", data = data)
 
+@app.route("/guide")
+def guide():
+	return render_template("guide.html", title = "Guide")
+
 @app.route("/admin")
 def admin():
 	classrooms = Classroom.query.order_by(Classroom.code).all()
