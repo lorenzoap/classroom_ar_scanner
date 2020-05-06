@@ -30,11 +30,9 @@
 		</div>
 		<div class="requirements">
 			<h4>Requisiti</h4>
-				<ul>
-				        <li><strong>Browser Supportati: </strong>Firefox, Chrome, Safari e Opera</li>
-					<li><strong>Banda: </strong>Buona</li>
-					<li><strong>Hardware: </strong>Fotocamera da almeno 1MP</li>
-				</ul>
+				<li><strong>Browser Supportati: </strong>Firefox, Chrome, Safari e Opera</li>
+				<li><strong>Banda: </strong>Buona</li>
+				<li><strong>Hardware: </strong>Fotocamera da almeno 1MP</li>
 
 		</div>
 		<div class="test-now">
@@ -47,7 +45,7 @@
 						<h5 class="card-title"><strong>Scan QR Code</strong></h5>
 						<img class="py-2" src="{{ url_for('static', filename='img/qr.png') }}" class="card-img-top" style="width:80px;"/>
 						<p class="card-text">Esegui lo scan di un'aula.</p>
-						<a href="{{ url_for('scan') }}" class="btn btn-primary">Test now</a>
+						<a href="{{ url_for('scan') }}" class="btn btn-primary">Prova ora</a>
 					</div>
 				</div>
 			</div>
@@ -74,7 +72,7 @@
 							<a href="{{ url_for('index') }}">About</a>
 						</li>
 						<li>
-							<a href="{{ url_for('index') }}">Guide</a>
+							<a href="{{ url_for('guide') }}">Guide</a>
 						</li>
 					</ul>
 				</div>
