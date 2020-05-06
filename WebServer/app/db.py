@@ -31,11 +31,4 @@ class SchoolHour(db.Model):
 	def __repr__(self):
 		return f"SchoolHour(id: {self.id}, classroom_id: {self.classroom_id}, start_time: {self.start_time}, end_time: {self.endtime}, teacher: {self.teacher}, day: {self.day}, school_subject: {self.school_subject})"
 
-
-while True:
-	try:
-		db.create_all()
-		break
-	except:
-		print("Connection to database failed. Retrying ...")
-		time.sleep(5)
+db.create_all()
