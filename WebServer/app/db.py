@@ -7,6 +7,8 @@ from app import app
 db = SQLAlchemy(app)
 
 class Classroom(db.Model):
+	"""Modello che descrive una classe."""
+
 	__tablename__ = "classroom"
 	code = db.Column(db.Integer, primary_key = True)
 	name = db.Column(db.String(16), nullable = False, unique = True)
@@ -15,6 +17,8 @@ class Classroom(db.Model):
 		return f"Classroom(code: {self.code}, name: {self.name})"
 
 class SchoolHour(db.Model):
+	"""Modello che descrive una lezione scolastica."""
+
 	__tablename__ = "school_hour"
 	id = db.Column(db.Integer, primary_key = True)
 	classroom_id = db.Column(db.Integer, nullable = False)
