@@ -3,3 +3,4 @@ flask-sqlalchemy
 selenium
 bs4
 uwsgi
+html5lib
