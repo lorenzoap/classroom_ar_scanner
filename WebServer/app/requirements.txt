@@ -1,7 +1,5 @@
 flask
-flask-mysql
-flask_sqlalchemy
-pymysql
+flask-sqlalchemy
 selenium
 bs4
 uwsgi
