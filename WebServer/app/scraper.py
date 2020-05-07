@@ -20,10 +20,7 @@ class Scraper:
 		driver_options = Options()
 		driver_options.headless = not debug # Use headless mode if debug is disabled
 
-		if os.environ.get("LOCAL_BROWSER") in ["yes", "on", "true"]:
-			self.browser = webdriver.Firefox(options = driver_options)
-		else:
-			self.browser = webdriver.Remote("http://cas_firefox:4444/wd/hub", webdriver.DesiredCapabilities.FIREFOX)
+		self.browser = webdriver.Firefox(options = driver_options, executable_path = "./geckodriver")
 
 	def get_timetable(self, classroom_name):
 		self.browser.get(self.url)
