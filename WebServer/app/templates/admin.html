@@ -88,9 +88,9 @@
 							<td><input type="number" name="classroom_id" value="{{ school_hour.classroom_id }}" min="1" required/></td>
 							<td><input type="time" name="start_time" value="{{ school_hour.start_time }}" required/></td>
 							<td><input type="time" name="end_time" value="{{ school_hour.end_time }}" required/></td>
-							<td><input type="text" name="teacher" value="{{ school_hour.teacher }}" required/></td>
+							<td><input type="text" name="teacher" value="{{ school_hour.teacher }}"/></td>
 							<td><input type="date" name="day" value="{{ school_hour.day }}" required/></td>
-							<td><input type="text" name="subject" value="{{ school_hour.school_subject }}" required/></td>
+							<td><input type="text" name="subject" value="{{ school_hour.school_subject }}"/></td>
 							<td>
 								<a class="btn btn-danger btn-sm my-1" href="{{ url_for('admin_delete_sh', id=school_hour.id) }}">Delete</a>
 								<input class="btn btn-success btn-sm my-1" type="submit" value="Save changes"/>
