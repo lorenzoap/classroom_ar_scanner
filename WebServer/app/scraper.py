@@ -12,15 +12,18 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 class Scraper:
 	def __init__(self, url, debug = False):
 		self.url = url
 
+		cap = DesiredCapabilities().FIREFOX
+		cap["marionette"] = False
 		driver_options = Options()
 		driver_options.headless = not debug # Use headless mode if debug is disabled
 
-		self.browser = webdriver.Firefox(options = driver_options, executable_path = "./geckodriver")
+		self.browser = webdriver.Firefox(capabilities=cap, options = driver_options, executable_path = "./geckodriver")
 
 	def get_timetable(self, classroom_name):
 		self.browser.get(self.url)
