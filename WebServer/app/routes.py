@@ -156,3 +156,7 @@ def admin_refreshall():
 		fetch_classroom_timetable(classroom.name)
 	flash("Gli orari di tutte le aule stanno venendo aggiornati in background. Ciò potrebbe impiegare molto tempo. Ricarica periodicamente la pagina per visualizzare le modifiche.")
 	return redirect(url_for("admin"))
+
+@app.errorhandler(404)
+def page_not_found(e):
+	return render_template("error.html", message = "La pagina non è stata trovata.", details = str(e))
