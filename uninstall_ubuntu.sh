@@ -2,8 +2,8 @@
 
 # app web
 echo Disinstallazione applicazione web...
-pip3 uninstall setuptools
-pip3 uninstall html5lib flask flask-sqlalchemy selenium bs4
+pip3 uninstall -y setuptools
+pip3 uninstall -y html5lib flask flask-sqlalchemy selenium bs4
 apt remove --purge --yes python3.8 python3-pip
 
 # nginx reverse proxy
