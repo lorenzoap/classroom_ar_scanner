@@ -13,14 +13,14 @@
 			<a class="nav-link" data-toggle="tab" href="#admin-tab-school-hours">School hours</a>
 		</li>
 	</ul>
-	<div id="admin-tab-content" class="tab-content">
+	<div id="admin-tab-content" class="tab-content p-3">
 		<div id="admin-tab-classrooms" class="tab-pane show active">
 			<h2>Classrooms</h2>
-			<a class="btn btn-warning" href="{{ url_for('admin_refreshall') }}">Refresh all</a>
+			<a class="btn btn-info my-2" href="{{ url_for('admin_refreshall') }}">Refresh all</a>
 			<table class="table">
 				<thead>
 					<tr>
-						<td>Code</td>
+						<td>ID</td>
 						<td>Name</td>
 						<td></td>
 					</tr>
@@ -33,9 +33,9 @@
 							<td>{{ classroom.code }}</td>
 							<td><input type="text" value="{{ classroom.name }}" name="name"/></td>
 							<td>
-								<a class="btn btn-danger btn-sm" href="{{ url_for('admin_delete_cr', code=classroom.code) }}">Delete</a>
-								<input class="btn btn-success btn-sm" type="submit" value="Save changes"/>
-								<a class="btn btn-info btn-sm" href="{{ url_for('admin_refresh_cr', code=classroom.code) }}">Refresh timetable</a>
+								<a class="btn btn-danger btn-sm my-1" href="{{ url_for('admin_delete_cr', code=classroom.code) }}">Delete</a>
+								<input class="btn btn-success btn-sm my-1" type="submit" value="Save changes"/>
+								<a class="btn btn-info btn-sm my-1" href="{{ url_for('admin_refresh_cr', code=classroom.code) }}">Refresh timetable</a>
 							</td>
 						</form>
 					</tr>
@@ -50,7 +50,7 @@
 		</div>
 		<div id="admin-tab-school-hours" class="tab-pane">
 			<h2>School hours</h2>
-			<a class="btn btn-warning" href="{{ url_for('admin_shcleanup') }}">Delete old entries</a>
+			<a class="btn btn-info my-2" href="{{ url_for('admin_shcleanup') }}">Delete old entries</a>
 			<table class="table">
 				<thead>
 					<tr>
@@ -86,8 +86,8 @@
 							<td><input type="date" name="day" value="{{ school_hour.day }}" required/></td>
 							<td><input type="text" name="subject" value="{{ school_hour.school_subject }}" required/></td>
 							<td>
-								<a class="btn btn-danger btn-sm" href="{{ url_for('admin_delete_sh', id=school_hour.id) }}">Delete</a>
-								<input class="btn btn-success btn-sm" type="submit" value="Save changes"/>
+								<a class="btn btn-danger btn-sm my-1" href="{{ url_for('admin_delete_sh', id=school_hour.id) }}">Delete</a>
+								<input class="btn btn-success btn-sm my-1" type="submit" value="Save changes"/>
 							</td>
 						</form>
 					</tr>
