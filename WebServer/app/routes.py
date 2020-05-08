@@ -13,8 +13,8 @@ from flask import request
 from flask import url_for
 from sqlalchemy.exc import IntegrityError
 
+import bgtasks
 from app import app
-from bgtasks import fetch_classroom_timetable
 from db import Classroom, SchoolHour
 from db import db
 
@@ -121,7 +121,7 @@ def admin_edit_cr():
 def admin_refresh_cr(code):
 	"""Aggiorna gli orari di un'aula."""
 	classroom = Classroom.query.get_or_404(code)
-	fetch_classroom_timetable(classroom.name)
+	bgtasks.fetch_classroom_timetable(classroom.name)
 	flash("Gli orari stanno venendo aggiornati in background. Ricaricare regolarmente la pagina per visualizzare le modifiche.")
 	return redirect(url_for("admin"))
 
@@ -188,9 +188,13 @@ def admin_refreshall():
 	"""Aggiorna gli orari di tutte le aule."""
 	classrooms = Classroom.query.all()
 	for classroom in classrooms:
-		fetch_classroom_timetable(classroom.name)
+		bgtasks.fetch_classroom_timetable(classroom.name)
 	flash("Gli orari di tutte le aule stanno venendo aggiornati in background. Ciò potrebbe impiegare molto tempo. Ricarica periodicamente la pagina per visualizzare le modifiche.")
 	return redirect(url_for("admin"))
+
+@app.route("/running_tasks")
+def running_tasks():
+	return str(bgtasks.get_running_tasks())
 
 @app.errorhandler(404)
 def page_not_found(e):

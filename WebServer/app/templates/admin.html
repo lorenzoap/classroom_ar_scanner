@@ -15,6 +15,12 @@
 	</ul>
 	<div id="admin-tab-content" class="tab-content p-3">
 		<div id="admin-tab-classrooms" class="tab-pane show active">
+			<div id="n_bg_tasks_dialog" class="container-sm my-2 alert alert-info alert-dismissible">
+				<p id="n_bg_tasks"></p>
+				<button type="button" class="close" data-dismiss="alert">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
 			<h2>Classrooms</h2>
 			<a class="btn btn-info my-2" href="{{ url_for('admin_refreshall') }}">Refresh all</a>
 			<table class="table">
@@ -96,4 +102,49 @@
 			</table>
 		</div>
 	</div>
+	<script type="text/javascript">
+		var previousNumber = 0
+		var run = true;
+
+		function update_bg_tasks()
+		{
+			if(!run)
+				return;
+
+			let request = new XMLHttpRequest();
+			request.onreadystatechange = function()
+			{
+				if(this.readyState == 4 && this.status == 200)
+				{
+					let bg_tasks_display = document.getElementById("n_bg_tasks");
+					let bg_tasks = this.responseText;
+
+					if(bg_tasks == 0)
+					{
+						if(previousNumber == 0)
+						{
+							document.getElementById("n_bg_tasks_dialog").style.display = "none";
+						}
+						else
+						{
+							bg_tasks_display.innerHTML = "Gli orari di tutte le aule sono state aggiornate. <a href=\"{{ url_for('admin') }}\">Ricarica la pagina</a> per vedere i nuovi orari.";
+							run = false;
+						}
+					}
+					else
+					{
+						bg_tasks_display.innerHTML = "<img width=\"32\" src=\"{{ url_for('static', filename='img/loading.svg') }}\"/> " + bg_tasks + " classi stanno venendo aggiornate in background...";
+					}
+
+					previousNumber = bg_tasks;
+				}
+			}
+
+			request.open("GET", "{{ url_for('running_tasks') }}");
+			request.send();
+		}
+
+		update_bg_tasks();
+		setInterval(update_bg_tasks, 1000);
+	</script>
 {% endblock %}
