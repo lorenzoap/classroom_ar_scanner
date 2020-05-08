@@ -1,5 +1,7 @@
 # Classroom AR Scanner
 
+Una scuola ha bisogno di un sistema in grado di gestire gli orari delle lezioni e varie classi. Questo progetto mira a creare un sistema di realtà aumentata, che attraverso i codici QR presenti nelle aule farà apparire l'ora del giorno di quella singola classe per migliorare la ricerca e facilitare le persone. Sarà anche possibile cercare una classe attraverso una funzione GPS. Per fare questo useremo le nozioni apprese nella nostra scuola usando le seguenti lingue:
+sql, php, css, js e html.
 
 
 ## Responsabile 
