@@ -42,3 +42,9 @@ Per distribuzioni basate su Ubuntu: `# ./install.sh`
 Per avviare il server, eseguire lo script `run.sh`:
 
 `$ ./run.sh`
+
+## Link 
+
+- [Diari](Diari di lavoro)
+
+
