@@ -35,7 +35,7 @@ Sono presenti degli script che automatizzano l'installazione dei server.
 
 Per questo tipo d'installazione basta eseguire lo script d'installazione come root:
 
-Per distribuzioni basate su Ubuntu: `# ./install.sh`
+Per distribuzioni basate su Ubuntu: `# ./install_ubuntu.sh`
 
 ## Esecuzione
 

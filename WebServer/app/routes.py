@@ -40,6 +40,11 @@ def guide():
 	"""Ritorna la pagina della guida utente all'uso del sito"""
 	return render_template("guide.html", title = "Guide")
 
+@app.route("/about")
+def about():
+	"""Ritorna la pagina di informazioni generali."""
+	return render_template("about.html", title = "About")
+
 @app.route("/schedule/<int:id>")
 def schedule(id):
 	"""Ritorna gli orari di una classe specifica."""
@@ -192,6 +197,7 @@ def admin_refreshall():
 
 @app.route("/running_tasks")
 def running_tasks():
+	"""Ritorna il numero di tasks in esecuzione in background."""
 	return str(bgtasks.get_running_tasks())
 
 @app.errorhandler(404)
