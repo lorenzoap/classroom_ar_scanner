@@ -1,3 +1,8 @@
+"""
+Questo file contiene l'inizializzazione dell'applicazione
+base di Flask.
+"""
+
 from flask import Flask
 
 from flask_config import get_flask_config
