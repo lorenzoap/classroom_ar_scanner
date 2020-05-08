@@ -13,6 +13,10 @@ sql, php, css, js e html.
 * Julian Sprugasci 
 * Claudio Engeler
 
+## Durata proggetto
+
+17.01.2020 - 08.05.2020
+
 ## Requisiti per il server
 
 * Un sistema grafico (es: Xorg)
