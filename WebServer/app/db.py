@@ -29,6 +29,6 @@ class SchoolHour(db.Model):
 	school_subject = db.Column(db.String(32))
 
 	def __repr__(self):
-		return f"SchoolHour(id: {self.id}, classroom_id: {self.classroom_id}, start_time: {self.start_time}, end_time: {self.endtime}, teacher: {self.teacher}, day: {self.day}, school_subject: {self.school_subject})"
+		return f"SchoolHour(id: {self.id}, classroom_id: {self.classroom_id}, start_time: {self.start_time}, end_time: {self.end_time}, teacher: {self.teacher}, day: {self.day}, school_subject: {self.school_subject})"
 
 db.create_all()
