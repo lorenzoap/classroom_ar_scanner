@@ -1,5 +1,11 @@
 # Classroom AR Scanner
 
+## Componenti del gruppo
+* Lorenzo Adam Piazza
+* Pierpaolo Casati
+* Julian Sprugasci
+* Claudio Engeler
+
 ## Requisiti per il server
 
 * Un sistema grafico (es: Xorg)
