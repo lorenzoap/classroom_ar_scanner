@@ -40,6 +40,11 @@ def guide():
 	"""Ritorna la pagina della guida utente all'uso del sito"""
 	return render_template("guide.html", title = "Guide")
 
+@app.route("/about")
+def about():
+	"""Ritorna la pagina di informazioni generali."""
+	return render_template("about.html", title = "About")
+
 @app.route("/schedule/<int:id>")
 def schedule(id):
 	"""Ritorna gli orari di una classe specifica."""
