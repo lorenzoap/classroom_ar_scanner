@@ -192,6 +192,7 @@ def admin_refreshall():
 
 @app.route("/running_tasks")
 def running_tasks():
+	"""Ritorna il numero di tasks in esecuzione in background."""
 	return str(bgtasks.get_running_tasks())
 
 @app.errorhandler(404)
