@@ -1,3 +1,8 @@
+"""
+Questo file è il punto di partenza dell'applicazione web.
+Questo è il file che si dovrà avviare per eseguire l'applicazione.
+"""
+
 from app import app
 import routes
 

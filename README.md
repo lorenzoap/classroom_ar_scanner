@@ -1,4 +1,4 @@
-# CLassroom AR Scanner
+# Classroom AR Scanner
 
 ## Requisiti per il server
 

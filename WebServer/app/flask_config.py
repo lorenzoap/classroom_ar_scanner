@@ -1,3 +1,7 @@
+"""
+Questo file contiene le configurazioni di Flask.
+"""
+
 import os
 
 class FlaskConfigBase:

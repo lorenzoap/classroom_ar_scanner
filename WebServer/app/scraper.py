@@ -1,3 +1,8 @@
+"""
+Questo file contiene lo scraper, ovvero lo script che recupera
+gli orari dal sito della scuola.
+"""
+
 import datetime
 import json
 import os
@@ -14,7 +19,9 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 class Scraper:
+	"""Strumento per scaricare gli orari dal sito della scuola."""
 	def __init__(self, url, debug = False):
+		"""Costruttore."""
 		self.url = url
 
 		driver_options = Options()
@@ -23,6 +30,7 @@ class Scraper:
 		self.browser = webdriver.Firefox(options = driver_options, executable_path = "./geckodriver")
 
 	def get_timetable(self, classroom_name):
+		"""Permette di recuperare gli orari di tutta la settimana corrente di un'aula specifica."""
 		self.browser.get(self.url)
 
 		# Aspetta che la pagina si carichi
@@ -126,6 +134,7 @@ class Scraper:
 		return result
 
 	def parse_class(self, text):
+		"""Estrae il nome della classe."""
 		pattern = "SAM [IED][1-4][ABCD]{2}"
 		classes = re.findall(pattern, text)
 		ris =  []
@@ -137,6 +146,7 @@ class Scraper:
 		return ris
 
 	def loaded_check(self, element_id):
+		"""Controlla se il web driver è pronto."""
 		loaded = False
 		try:
 			WebDriverWait(self.browser, 5).until(EC.presence_of_element_located((By.ID, element_id)))
@@ -147,4 +157,5 @@ class Scraper:
 		return loaded
 
 	def __del__(self):
+		"""Distruttore. Chiude la connessione con il browser."""
 		self.browser.close()

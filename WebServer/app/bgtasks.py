@@ -50,10 +50,9 @@ def convert_date_format(scraper_date):
 
 	return datetime.date(year, month, day)
 
-def task_fetch_classroom_timetable(classroom_id):
+def task_fetch_classroom_timetable(classroom):
 	"""Esegue lo Scraper ed inserisce i dati ricevuto nel database. Attenzione: non chiamare questo metodo direttamente! Usare fetch_classroom_timetable"""
 
-	classroom = Classroom.query.get_or_404(classroom_id)
 	scraper = Scraper("https://www.cpttrevano.ti.ch/orario/invite?invite=true")
 	result = scraper.get_timetable(classroom.name)
 
@@ -63,7 +62,7 @@ def task_fetch_classroom_timetable(classroom_id):
 		for subject in day["subjects"]:
 			# Aggiungi i dati al database
 			time = convert_time_format(subject["time"])
-			new_school_hour = SchoolHour(classroom_id = classroom_id,
+			new_school_hour = SchoolHour(classroom_id = classroom.code,
 			                             start_time = time["start_time"],
 										 end_time = time["end_time"],
 										 teacher = subject["teacher"],
@@ -77,5 +76,5 @@ def fetch_classroom_timetable(classroom_name):
 	"""Esegue task_fetch_classroom_timetable in un thread separato."""
 
 	classroom = Classroom.query.filter_by(name = classroom_name).first()
-	thread = Thread(target = task_fetch_classroom_timetable, args = (classroom.code, ))
+	thread = Thread(target = task_fetch_classroom_timetable, args = (classroom, ))
 	thread.start()
