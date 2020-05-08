@@ -45,6 +45,6 @@ Per avviare il server, eseguire lo script `run.sh`:
 
 ## Link 
 
--[Diari](Diari)
+*[Diari](Diari di lavoro)
 
 
