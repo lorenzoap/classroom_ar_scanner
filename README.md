@@ -4,7 +4,7 @@ Una scuola ha bisogno di un sistema in grado di gestire gli orari delle lezioni 
 sql, php, css, js e html.
 
 
-## Responsabile 
+## Responsabile del proggetto
 * Geo Petrini
 
 ## Componenti del gruppo
