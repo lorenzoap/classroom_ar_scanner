@@ -13,7 +13,7 @@ sql, php, css, js e html.
 * Julian Sprugasci 
 * Claudio Engeler
 
-## Durata proggetto
+## Durata del proggetto
 
 17.01.2020 - 08.05.2020
 
