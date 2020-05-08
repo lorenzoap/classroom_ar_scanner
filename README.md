@@ -46,5 +46,6 @@ Per avviare il server, eseguire lo script `run.sh`:
 ## Link 
 
 * [Diari di lavoro](Diari)
+* [Documentazione del proggetto](Materiale/Doc)
 
 
