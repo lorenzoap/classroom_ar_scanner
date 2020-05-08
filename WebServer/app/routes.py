@@ -140,7 +140,7 @@ def admin_add_sh():
 	                             start_time = datetime.strptime(request.form["start_time"], "%H:%M").time(),
 	                             end_time = datetime.strptime(request.form["end_time"], "%H:%M").time(),
 	                             teacher = request.form["teacher"],
-	                             day = datetime.fromisoformat(request.form["day"]).date(),
+	                             day = datetime.strptime(request.form["day"], "%Y-%m-%d").date(),
 	                             school_subject = request.form["subject"])
 
 	db.session.add(new_school_hour)
@@ -162,7 +162,7 @@ def admin_edit_sh():
 	school_hour_to_edit.start_time = datetime.strptime(request.form["start_time"], "%H:%M:%S").time()
 	school_hour_to_edit.end_time = datetime.strptime(request.form["end_time"], "%H:%M:%S").time()
 	school_hour_to_edit.teacher = request.form["teacher"]
-	school_hour_to_edit.day = datetime.isoformat(request.form["day"]).date()
+	school_hour_to_edit.day = datetime.strptime(request.form["day"], "%Y-%m-%d").date()
 	school_hour_to_edit.school_subject = request.form["subject"]
 
 	try:
