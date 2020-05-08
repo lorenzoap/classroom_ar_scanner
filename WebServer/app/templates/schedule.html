@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block head %}
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+{% endblock %}
+
+{% block body %}
+	<h1 class="text-center mt-5">{{ data["classroom"].name }}</h1>
+	<a class="btn btn-info my-3 mx-5 fas fa-arrow-left" href="{{ url_for('scan') }}"> Torna indietro</a>
+	<table class="table table-light container-sm border">
+		<thead>
+			<tr>
+				<th>Giorno</th>
+				<th>Orario</th>
+				<th>Insegnante</th>
+				<th>Materia</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for elem in data["timetables"] %}
+				<tr>
+					<td>{{ elem.day }}</td>
+					<td>{{ elem.start_time }} - {{ elem.end_time }}</td>
+					<td>{{ elem.teacher }}</td>
+					<td>{{ elem.school_subject }}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

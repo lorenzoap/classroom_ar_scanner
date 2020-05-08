@@ -31,6 +31,21 @@ def scan():
 def guide():
 	return render_template("guide.html", title = "Guide")
 
+@app.route("/schedule/<int:id>")
+def schedule(id):
+	data = {}
+
+	classroom = Classroom.query.get_or_404(id);
+	data["classroom"] = classroom
+
+	timetables = SchoolHour.query.filter(SchoolHour.classroom_id == classroom.code).all()
+
+	data["timetables"] = []
+	for timetable in timetables:
+		data["timetables"].append(timetable)
+
+	return render_template("schedule.html", title = "Schedule", data = data)
+
 @app.route("/admin")
 def admin():
 	classrooms = Classroom.query.order_by(Classroom.code).all()

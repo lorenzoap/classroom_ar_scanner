@@ -12,16 +12,38 @@
 {% endblock %}
 
 {% block body %}
-	<a-scene id="scene" embedded arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix;">
-		{% for elem in data %}
-		<a-marker type="barcode" value="{{ elem['classroom'].code }}">
-			<a-box position="0.0 0.0 0.0" scale="2.0 0.1 1.0" color="#999999"></a-box>
-			<a-text position="0.0 0.25 -0.35" rotation="-90.0 0.0 0.0" scale="0.5 0.5 1.0" align="center" value="{{ elem['classroom'].name }}" color="#000000"></a-text>
-			<a-text position="0.0 0.25 -0.15" rotation="-90.0 0.0 0.0" scale="0.5 0.5 1.0" align="center" value="Lezione attuale: {{ elem['school_hour'].school_subject }}" color="#000000"></a-text>
-			<a-text position="0.0 0.25 -0.05" rotation="-90.0 0.0 0.0" scale="0.5 0.5 1.0" align="center" value="Docente: {{ elem['school_hour'].teacher }}" color="#000000"></a-text>
-			<a-text position="0.0 0.25 0.05"  rotation="-90.0 0.0 0.0" scale="0.5 0.5 1.0" align="center" value="Orario: {{ elem['school_hour'].start_time }} - {{ elem['school_hour'].end_time }}" color="#000000"></a-text>
-		</a-marker>
-		{% endfor %}
-		<a-entity camera></a-entity>
-	</a-scene>
+	<script type="text/javascript">
+		AFRAME.registerComponent("info_button", {
+			init: function()
+			{
+				let marker = this.el;
+				let marker_value = marker.id;
+				let link = document.getElementById("info_link");
+
+				marker.addEventListener("markerFound", function()
+				{
+					link.setAttribute("href", "/schedule/" + marker_value);
+				});
+
+				marker.addEventListener("markerLost", function()
+				{
+					link.removeAttribute("href");
+				});
+			}
+		})
+	</script>
+	<a id="info_link">
+		<a-scene id="scene" embedded arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix;">
+			{% for elem in data %}
+			<a-marker id="{{ elem['classroom'].code }}" type="barcode" value="{{ elem['classroom'].code }}" info_button>
+				<a-box position="0.0 0.0 0.0" scale="2.0 0.1 1.0" color="#999999"></a-box>
+				<a-text position="0.0 0.25 -0.35" rotation="-90.0 0.0 0.0" scale="0.5 0.5 1.0" align="center" value="{{ elem['classroom'].name }}" color="#000000"></a-text>
+				<a-text position="0.0 0.25 -0.15" rotation="-90.0 0.0 0.0" scale="0.5 0.5 1.0" align="center" value="Lezione attuale: {{ elem['school_hour'].school_subject }}" color="#000000"></a-text>
+				<a-text position="0.0 0.25 -0.05" rotation="-90.0 0.0 0.0" scale="0.5 0.5 1.0" align="center" value="Docente: {{ elem['school_hour'].teacher }}" color="#000000"></a-text>
+				<a-text position="0.0 0.25 0.05"  rotation="-90.0 0.0 0.0" scale="0.5 0.5 1.0" align="center" value="Orario: {{ elem['school_hour'].start_time }} - {{ elem['school_hour'].end_time }}" color="#000000"></a-text>
+			</a-marker>
+			{% endfor %}
+			<a-entity camera></a-entity>
+		</a-scene>
+	</a>
 {% endblock %}
