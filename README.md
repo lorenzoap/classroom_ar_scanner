@@ -1,9 +1,14 @@
 # Classroom AR Scanner
 
+
+
+## Responsabile 
+* Geo Petrini
+
 ## Componenti del gruppo
-* Lorenzo Adam Piazza
+* Lorenzo Adam Piazza 
 * Pierpaolo Casati
-* Julian Sprugasci
+* Julian Sprugasci 
 * Claudio Engeler
 
 ## Requisiti per il server
