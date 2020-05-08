@@ -1,3 +1,9 @@
+"""
+Questo file contiene le definizioni deglu URL del sito.
+Ad ogni URL è associato un metodo che esegue un'azione
+e ritorna una risposta HTML.
+"""
+
 from datetime import datetime
 
 from flask import flash
@@ -14,10 +20,12 @@ from db import db
 
 @app.route("/")
 def index():
+	"""Ritorna la homepage del sito."""
 	return render_template("index.html", title="Home")
 
 @app.route("/scan")
 def scan():
+	"""Ritorna la pagina per scansionare le aule con gli orari attuali delle classi"""
 	data = []
 	classrooms = Classroom.query.all()
 
@@ -29,10 +37,12 @@ def scan():
 
 @app.route("/guide")
 def guide():
+	"""Ritorna la pagina della guida utente all'uso del sito"""
 	return render_template("guide.html", title = "Guide")
 
 @app.route("/schedule/<int:id>")
 def schedule(id):
+	"""Ritorna gli orari di una classe specifica."""
 	data = {}
 
 	classroom = Classroom.query.get_or_404(id);
@@ -48,12 +58,14 @@ def schedule(id):
 
 @app.route("/admin")
 def admin():
+	"""Ritorna il pannello di controllo admin"""
 	classrooms = Classroom.query.order_by(Classroom.code).all()
 	school_hours = SchoolHour.query.order_by(SchoolHour.day, SchoolHour.start_time).all()
 	return render_template("admin.html", title = "DB Admin", classrooms = classrooms, school_hours = school_hours)
 
 @app.route("/admin/deletecr/<int:code>")
 def admin_delete_cr(code):
+	"""Elimina l'aula specificata dal database."""
 	classroom_to_delete = Classroom.query.get_or_404(code)
 	db.session.delete(classroom_to_delete)
 	db.session.commit()
@@ -61,6 +73,7 @@ def admin_delete_cr(code):
 
 @app.route("/admin/addcr", methods = ["POST"])
 def admin_add_cr():
+	"""Aggiunge una nuova aula nel database."""
 	name = ""
 
 	try:
@@ -82,6 +95,7 @@ def admin_add_cr():
 
 @app.route("/admin/editcr", methods = ["POST"])
 def admin_edit_cr():
+	"""Aggiorna un'aula."""
 	old_code = 0
 	new_name = ""
 
@@ -105,6 +119,7 @@ def admin_edit_cr():
 
 @app.route("/admin/refresh/<int:code>")
 def admin_refresh_cr(code):
+	"""Aggiorna gli orari di un'aula."""
 	classroom = Classroom.query.get_or_404(code)
 	fetch_classroom_timetable(classroom.name)
 	flash("Gli orari stanno venendo aggiornati in background. Ricaricare regolarmente la pagina per visualizzare le modifiche.")
@@ -112,6 +127,7 @@ def admin_refresh_cr(code):
 
 @app.route("/admin/deletesh/<int:id>")
 def admin_delete_sh(id):
+	"""Elimina un orario di un'aula dal database."""
 	school_hour_to_delete = SchoolHour.query.get_or_404(id)
 	db.session.delete(school_hour_to_delete)
 	db.session.commit()
@@ -119,6 +135,7 @@ def admin_delete_sh(id):
 
 @app.route("/admin/addsh", methods = ["POST"])
 def admin_add_sh():
+	"""Aggiunge l'orario di un'aula al database."""
 	new_school_hour = SchoolHour(classroom_id = request.form["classroom_id"],
 	                             start_time = datetime.strptime(request.form["start_time"], "%H:%M").time(),
 	                             end_time = datetime.strptime(request.form["end_time"], "%H:%M").time(),
@@ -137,6 +154,7 @@ def admin_add_sh():
 
 @app.route("/admin/editsh", methods = ["POST"])
 def admin_edit_sh():
+	"""Aggiorna un'orario di un'aula."""
 	old_id = int(request.form["id"])
 
 	school_hour_to_edit = SchoolHour.query.get_or_404(old_id)
@@ -156,6 +174,7 @@ def admin_edit_sh():
 
 @app.route("/admin/shcleanup")
 def admin_shcleanup():
+	"""Elimina tutti gli orari dei giorna passati dal database."""
 	flash("Tutti gli orari vecchi sono stati eliminati dal database.")
 
 	school_hours_to_delete = SchoolHour.query.filter(SchoolHour.day < datetime.now()).delete()
@@ -166,6 +185,7 @@ def admin_shcleanup():
 
 @app.route("/admin/refreshall")
 def admin_refreshall():
+	"""Aggiorna gli orari di tutte le aule."""
 	classrooms = Classroom.query.all()
 	for classroom in classrooms:
 		fetch_classroom_timetable(classroom.name)
@@ -174,4 +194,5 @@ def admin_refreshall():
 
 @app.errorhandler(404)
 def page_not_found(e):
+	"""Gestisce gli errori 404 delle pagine non trovate."""
 	return render_template("error.html", message = "La pagina non è stata trovata.", details = str(e))
