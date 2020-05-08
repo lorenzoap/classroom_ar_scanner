@@ -1,3 +1,7 @@
+"""
+Contiene delle funzioni per eseguire delle tasks in background.
+"""
+
 import datetime
 import re
 from threading import Thread
