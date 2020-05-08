@@ -1,3 +1,8 @@
+"""
+Questo file contiene le definizioni dei modelli per
+il database.
+"""
+
 import time
 
 from flask_sqlalchemy import SQLAlchemy
