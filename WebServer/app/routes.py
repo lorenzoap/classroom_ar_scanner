@@ -175,7 +175,6 @@ def admin_edit_sh():
 @app.route("/admin/shcleanup")
 def admin_shcleanup():
 	"""Elimina tutti gli orari dei giorna passati dal database."""
-	flash("Tutti gli orari vecchi sono stati eliminati dal database.")
 
 	school_hours_to_delete = SchoolHour.query.filter(SchoolHour.day < datetime.now()).delete()
 
@@ -189,7 +188,6 @@ def admin_refreshall():
 	classrooms = Classroom.query.all()
 	for classroom in classrooms:
 		bgtasks.fetch_classroom_timetable(classroom.name)
-	flash("Gli orari di tutte le aule stanno venendo aggiornati in background. Ciò potrebbe impiegare molto tempo. Ricarica periodicamente la pagina per visualizzare le modifiche.")
 	return redirect(url_for("admin"))
 
 @app.route("/running_tasks")
