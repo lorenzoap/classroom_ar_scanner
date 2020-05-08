@@ -10,8 +10,6 @@ from app import app
 from db import Classroom, db, SchoolHour
 from scraper import Scraper
 
-running_tasks = 0
-
 def convert_time_format(scraper_time):
 	"""Converte un tempo nel formato ritornato da Scraper (es 12h30) in un formato accettato da Python (12:30)."""
 
@@ -58,9 +56,6 @@ def convert_date_format(scraper_date):
 
 def task_fetch_classroom_timetable(classroom):
 	"""Esegue lo Scraper ed inserisce i dati ricevuto nel database. Attenzione: non chiamare questo metodo direttamente! Usare fetch_classroom_timetable"""
-	global running_tasks
-
-	running_tasks += 1
 
 	scraper = Scraper("https://www.cpttrevano.ti.ch/orario/invite?invite=true")
 	result = scraper.get_timetable(classroom.name)
@@ -81,8 +76,6 @@ def task_fetch_classroom_timetable(classroom):
 			db.session.add(new_school_hour)
 			db.session.commit()
 
-	running_tasks -= 1
-
 def fetch_classroom_timetable(classroom_name):
 	"""Esegue task_fetch_classroom_timetable in un thread separato."""
 
@@ -91,6 +84,5 @@ def fetch_classroom_timetable(classroom_name):
 	thread.start()
 
 def get_running_tasks():
-	# return running_tasks
 	# 3 thread sono già presenti
 	return str(active_count() - 3)
